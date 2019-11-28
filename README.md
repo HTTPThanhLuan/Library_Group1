@@ -15,8 +15,8 @@ they also have Administrator access).
 
 
 # Collaborators
-Mahlet Sharew \n
-Vong Tran
-Lam Binh Tang
-Tam Van Vo
-Thanh Luan Tran
+1. Mahlet Sharew
+2. Vong Tran
+3. Lam Binh Tang
+4. Tam Van Vo
+5. Thanh Luan Tran
