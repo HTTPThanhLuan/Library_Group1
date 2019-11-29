@@ -169,16 +169,13 @@ public class MemberController implements Initializable {
 			alert.showAndWait();
 		}
 	}
-	TestController test= new TestController();
 	public void handleClicks(ActionEvent actionEvent) throws Exception {
         if (actionEvent.getSource() == btnMember) {
         	mainm.showData();
         	
         }
         if (actionEvent.getSource() == btnBook) {
-        	System.out.println("hi");
-        	
-            
+        	mainm.showBookOverview();
         }
        
     }

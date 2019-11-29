@@ -11,7 +11,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 import javafx.beans.value.ObservableValue;
 
-import application.Main;
+import home.Main;
 import model.Book;
 
 public class BookOverviewController {
