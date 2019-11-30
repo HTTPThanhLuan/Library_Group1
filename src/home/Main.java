@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
@@ -16,6 +17,7 @@ import model.Member;
 import view.BookEditDialogController;
 import view.BookOverviewController;
 import view.MemberEditDialogController;
+import view.RecordsCheckoutController;
 
 public class Main extends Application {
 	private ObservableList<Book> data = FXCollections.observableArrayList();
@@ -29,6 +31,11 @@ public class Main extends Application {
 	}
 	public Stage getPrimaryStage() {
 		return stage;
+	}
+	
+	public  ObservableList<Book> getListBook() {
+		
+		return data;
 	}
 	public Main() {
 		// Add some sample data
@@ -119,6 +126,25 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	  // Show checkout book record
+		public void showCheckOutBookRecord() {
+			try {
+				// Load book overview.
+				Stage bookStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Main.class.getResource("../view/RecordsCheckout.fxml"));
+				Pane view = (Pane) loader.load();
+				bookStage.setScene(new Scene(view));
+			
+				RecordsCheckoutController controller = loader.getController();
+				controller.setMainApp(this);
+				bookStage.setMaximized(true);// making window fullscreen
+				bookStage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	
 	public boolean showBookEditDialog(Book book) {
 		try {

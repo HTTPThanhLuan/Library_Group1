@@ -29,6 +29,11 @@ public class MemberController implements Initializable {
 
 	    @FXML
 	    private Button btnBook;
+	    
+	    @FXML
+	    private Button btnCheckOutRecord;
+	    
+	    
 
 	    @FXML
 	    private Button btnMember;
@@ -112,6 +117,17 @@ public class MemberController implements Initializable {
 		data.add(new Member("Stefan", "Meier"));
 		data.add(new Member("Martin", "Mueller"));
 	}
+    
+    
+    //ThanhLuanTran add this function for getting the data list of memembers
+    public ObservableList<Member> getMembers(){
+    	
+    	   data = FXCollections.observableArrayList();
+    	
+    	 addData();
+    	 
+    	 return data;
+    }
   
     Main mainm= new Main();
     @FXML
@@ -176,6 +192,10 @@ public class MemberController implements Initializable {
         }
         if (actionEvent.getSource() == btnBook) {
         	mainm.showBookOverview();
+        }
+        
+        if (actionEvent.getSource() == btnCheckOutRecord) {
+        	mainm.showCheckOutBookRecord();
         }
        
     }

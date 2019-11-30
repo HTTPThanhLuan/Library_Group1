@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RecordsCheckoutController">
+   <children>
+      <TableView fx:id="tableRecord" layoutX="-2.0" layoutY="75.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="322.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="tbcImage" prefWidth="145.66665649414062" />
+          <TableColumn fx:id="tbcTitle" prefWidth="159.33334350585938" text="Title" />
+            <TableColumn fx:id="tbcDueDate" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="146.66668701171875" text="Due" />
+            <TableColumn fx:id="tbcLibrarian" maxWidth="206.0" minWidth="0.0" prefWidth="147.6666259765625" text="Member" />
+        </columns>
+      </TableView>
+      <TextField fx:id="txtFilter" layoutX="200.0" layoutY="40.0" />
+      <ChoiceBox fx:id="cboChoice" layoutX="32.0" layoutY="40.0" prefWidth="150.0" />
+   </children>
+</Pane>

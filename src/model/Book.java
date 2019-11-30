@@ -4,11 +4,13 @@ import java.util.UUID;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.ImageView;
 
 
 
 
 public class Book {
+	private ImageView image;
 	private final StringProperty id;
 	private final StringProperty title;
 	private final StringProperty author;
@@ -16,11 +18,13 @@ public class Book {
 	private final StringProperty isbn;
 
 	public Book() {
+		
 		this.id = new SimpleStringProperty(UUID.randomUUID().toString());
 		this.title = new SimpleStringProperty(null);
 		this.author = new SimpleStringProperty(null);
 		this.publisher = new SimpleStringProperty(null);
 		this.isbn = new SimpleStringProperty(null);
+		this.image=new ImageView("/imagebooks/007149216X.jpg");
 	}
 	public Book(String title, String author, String publisher, String isbn) {
 		this.id = new SimpleStringProperty(UUID.randomUUID().toString());
@@ -28,6 +32,7 @@ public class Book {
 		this.author = new SimpleStringProperty(author);
 		this.publisher = new SimpleStringProperty(publisher);
 		this.isbn = new SimpleStringProperty(isbn);
+		this.image=new ImageView("/imagebooks/007149216X.jpg");
 	}
 
 	public Book(String title, String author) {
@@ -36,6 +41,7 @@ public class Book {
 		this.author = new SimpleStringProperty(author);
 		this.publisher = new SimpleStringProperty("Not available");
 		this.isbn = new SimpleStringProperty("Not available");
+		this.image=new ImageView("/imagebooks/007149216X.jpg");
 	}
 	
 	public String getId() {
@@ -77,4 +83,11 @@ public class Book {
 	public void setIsbn(String text) {
 		isbn.set(text);
 	}
+	
+	
+	public ImageView imageProperty() {
+        return image;
+    }
+	
+	
 }
