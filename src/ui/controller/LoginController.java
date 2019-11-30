@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import ui.DashboardBaseView;
 import ui.util.UIUtils;
 import ui.Navigator;
+import javafx.stage.Stage;
+
 
 import javax.security.auth.login.LoginException;
 
@@ -28,9 +30,11 @@ public class LoginController {
         try {
             ControllerInterface c = new SystemController();
             c.login(txtUser.getText().trim(), txtPassword.getText().trim());
-            Navigator.get().show(DashboardBaseView.class.toString());
+//            Navigator.get().show(DashboardBaseView.class.toString());
             txtUser.setText("");
             txtPassword.setText("");
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            stage.close();
         } catch (LoginException ex) {
             UIUtils.showAlertDialog(Alert.AlertType.ERROR, "Error", "Invalid credentials",
                     "Please input correct user id and password.");

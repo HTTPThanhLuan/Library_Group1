@@ -1,5 +1,7 @@
 package home;
 
+import static ui.Navigator.get;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -10,10 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Book;
 import model.Member;
+import ui.util.UIUtils;
 import view.BookEditDialogController;
 import view.BookOverviewController;
 import view.MemberEditDialogController;
@@ -21,8 +26,11 @@ import view.RecordsCheckoutController;
 
 public class Main extends Application {
 	private ObservableList<Book> data = FXCollections.observableArrayList();
-	Stage stage;
+	Stage primaryStage;
 	private AnchorPane rootLayout;
+    private double xOffset = 0;
+    private double yOffset = 0;
+    
     public static void main(String[] args) {
         launch(args);
     }
@@ -30,7 +38,7 @@ public class Main extends Application {
 		return data;
 	}
 	public Stage getPrimaryStage() {
-		return stage;
+		return primaryStage;
 	}
 	
 	public  ObservableList<Book> getListBook() {
@@ -50,10 +58,12 @@ public class Main extends Application {
 		data.add(new Book("The Healthy Brain Solution for Women", "Nancy Lonsdorf MD", "Independently published", "978-1792896774"));
 	}
 	
-	
     @Override
     public void start(Stage stage) throws Exception {
-    	 this.stage = stage;
+    	 primaryStage = stage;
+//    	 get().register(MemberController.class.toString(), primaryStage);
+    	 Stage loginStage = new Stage();
+    	 showLogin(loginStage);
     	 rootLayout = FXMLLoader.load(getClass().getResource("../view/ListMember.fxml"));
          Scene scene = new Scene(rootLayout, 850, 450);
         
@@ -62,7 +72,9 @@ public class Main extends Application {
          stage.show();
     }
 
-    public Stage getStage() {return stage;}
+    public Stage getStage() {
+    	return primaryStage;
+    }
     public boolean showPersonEditDialog(Member member) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
@@ -74,7 +86,7 @@ public class Main extends Application {
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Edit Member");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(stage);
+			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
@@ -157,7 +169,7 @@ public class Main extends Application {
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Edit Book");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(stage);
+			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
@@ -174,6 +186,35 @@ public class Main extends Application {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public void showLogin(Stage primaryStage) {
+		VBox topContainer = new VBox();
+        Parent loginRoot = UIUtils.lookupParent("/ui/view/LoginView.fxml");
+        loginRoot.getStylesheets().add(getClass().getResource("/ui/styles/login_view.css").toExternalForm());
+        loginRoot.setOnMousePressed(e -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+
+        loginRoot.setOnMouseDragged(e -> {
+            primaryStage.setX(e.getScreenX() - xOffset);
+            primaryStage.setY(e.getScreenY() - yOffset);
+        });
+        
+        loginRoot.setOnMouseDragged(e -> {
+            primaryStage.setX(e.getScreenX() - xOffset);
+            primaryStage.setY(e.getScreenY() - yOffset);
+        });
+
+        topContainer.getChildren().add(loginRoot);
+
+        primaryStage.setScene(new Scene(topContainer));
+        primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.centerOnScreen();
+        primaryStage.showAndWait();
+  
 	}
 
 }
