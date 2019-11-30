@@ -2,6 +2,7 @@ package view;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -28,18 +29,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Book;
 
-import model.ListCheckOutRecord;
-import model.ListCheckOutRecord.CheckOutRecord;
-import model.Member;
+import model.*;
+
 
 
 public class RecordsCheckoutController extends Application implements Initializable{
@@ -47,6 +54,9 @@ public class RecordsCheckoutController extends Application implements Initializa
 	 // The table and columns
     @FXML
     TableView<CheckOutRecord> tableRecord;
+    
+    @FXML
+    TableView<Member> tblMemberCheckOut;
 
     @FXML
     TableColumn tbcTitle;
@@ -64,11 +74,23 @@ public class RecordsCheckoutController extends Application implements Initializa
     @FXML
     TextField txtFilter;
     
+    @FXML
+    TextField txtFillterMember;
     
     
     @FXML
     ChoiceBox cboChoice;
     
+    @FXML
+    ChoiceBox cboFilterMember;
+    
+    @FXML
+    TableColumn colFirstName;
+       
+    @FXML
+    TableColumn colLastName;
+    
+   
     
     
 	// Reference to the main application.
@@ -91,18 +113,19 @@ public class RecordsCheckoutController extends Application implements Initializa
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+	
 		
-		
-		
-		
-		  // Set up the table data
+		// Set up the table data Book Checkout==================================================
 		MemberController member=new MemberController();
 		List<Member> listMember =member.getMembers();
-		    ListCheckOutRecord data=new ListCheckOutRecord();
-	
+		ListCheckOutRecord data=new ListCheckOutRecord();
+		    
+		    
+		
+		
 
 	 
+		// Setup column of table book checkout==============================================
 		tbcTitle.setCellValueFactory(
 	 	            new PropertyValueFactory<CheckOutRecord,String>("titleBook")
 	 	        );
@@ -119,24 +142,45 @@ public class RecordsCheckoutController extends Application implements Initializa
  	            new PropertyValueFactory<CheckOutRecord,String>("image")
  	        );
 		
-       // tableRecord.setItems(data.getObserList());
+		
+		// Setup column of table member checkout==============================================
+		
+		colFirstName.setCellValueFactory(
+ 	            new PropertyValueFactory<Member,String>("firstName")
+ 	        );
+		
+		colLastName.setCellValueFactory(
+ 	            new PropertyValueFactory<Member,String>("lastName")
+ 	        );
         
-        FilteredList<CheckOutRecord> flPerson = new FilteredList(data.getObserList(), p -> true);//Pass the data to a filtered list
-        tableRecord.setItems(flPerson);//Set the table's items using the filtered list
-       // tableRecord.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+		
+		//Filter CheckOut book==============================================================
+        FilteredList<CheckOutRecord> flBook = new FilteredList(data.getObserList(), p -> true);//Pass the data to a filtered list
+        tableRecord.setItems(flBook);//Set the table's items using the filtered list
+      
         
-        tableRecord.autosize();
+        //Filter CheckOut member===========================================================
+        FilteredList<Member> flMembers = new FilteredList(ListCheckOutRecord.getListOfMemberCheckOut(), p -> true);//Pass the data to a filtered list
+        tblMemberCheckOut.setItems(flMembers);//Set the table's items using the filtered list
         
         
         
+        // Combobox=======================================================================
         cboChoice.getItems().add("All");
         cboChoice.getItems().add("Title");
         cboChoice.getItems().add("Member");
         
         
+        cboChoice.setValue("All");
         
+        cboFilterMember.getItems().add("All");
+        cboFilterMember.getItems().add("FirstName");
+        cboFilterMember.getItems().add("LastName");
         
-       // TextField textField = new TextField();
+        cboFilterMember.setValue("All");
+        
+        //Search Book Checkout============================================================
+     
         txtFilter.setPromptText("Search here!");
         txtFilter.setOnKeyReleased(keyEvent ->
         {
@@ -145,19 +189,19 @@ public class RecordsCheckoutController extends Application implements Initializa
               {
                   case "All":
                   {
-                      flPerson.setPredicate(p -> p.getMember().toLowerCase().contains(txtFilter.getText().toLowerCase().trim()) || 
+                	  flBook.setPredicate(p -> p.getMember().toLowerCase().contains(txtFilter.getText().toLowerCase().trim()) || 
                     		  p.getTitle().toLowerCase().contains(txtFilter.getText().toLowerCase().trim())
                     		  );//filter table by first name
                       break;
                   }
                   case "Title":
                   {
-                		 flPerson.setPredicate(p -> p.getTitle().toLowerCase().contains(txtFilter.getText().toLowerCase().trim()));//filter table by first name
+                	  flBook.setPredicate(p -> p.getTitle().toLowerCase().contains(txtFilter.getText().toLowerCase().trim()));//filter table by first name
                       break;
                   }
                   case "Member":
                   {
-                      flPerson.setPredicate( p -> p.getMember().toLowerCase().contains(txtFilter.getText().toLowerCase().trim()));//filter table by first name
+                	  flBook.setPredicate( p -> p.getMember().toLowerCase().contains(txtFilter.getText().toLowerCase().trim()));//filter table by first name
                       break;
                   }
               }
@@ -166,7 +210,52 @@ public class RecordsCheckoutController extends Application implements Initializa
         
         });
         
+      //Search Member Checkout============================================================
         
+        txtFillterMember.setPromptText("Search here!");
+        txtFillterMember.setOnKeyReleased(keyEvent ->
+        {
+        	
+        	  switch ((String)cboFilterMember.getValue())//Switch on choiceBox value
+              {
+                  case "All":
+                  {
+                	  flMembers.setPredicate(p -> p.getFirstName().toLowerCase().contains(txtFillterMember.getText().toLowerCase().trim()) || 
+                    		  p.getLastName().toLowerCase().contains(txtFillterMember.getText().toLowerCase().trim())
+                    		  );//filter table by first name
+                      break;
+                  }
+                  case "FirstName":
+                  {
+                	  flMembers.setPredicate(p -> p.getFirstName().toLowerCase().contains(txtFillterMember.getText().toLowerCase().trim()));//filter table by first name
+                      break;
+                  }
+                  case "LastName":
+                  {
+                	  flMembers.setPredicate( p -> p.getLastName().toLowerCase().contains(txtFillterMember.getText().toLowerCase().trim()));//filter table by first name
+                      break;
+                  }
+              }
+        
+       
+        
+        });
+        
+        // doubleclick on table checkout member
+        
+        tblMemberCheckOut.setRowFactory( tv -> {
+            TableRow<Member> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                	Member rowData = row.getItem();
+                    System.out.println(rowData.getFirstName());
+                    
+                    showBookEditDialog(rowData);
+                }
+            });
+            return row ;
+        });
+       
        
         
         
@@ -175,7 +264,35 @@ public class RecordsCheckoutController extends Application implements Initializa
 
 	
 	
-	
+	public boolean showBookEditDialog(Member member) {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/viewRecordCheckout.fxml"));
+			Pane page = (Pane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			//dialogStage.initOwner(stage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			viewRecordCheckoutController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.showRecord(member);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 	@Override
 	protected Object _enterNestedEventLoop() {

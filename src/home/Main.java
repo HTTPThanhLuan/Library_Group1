@@ -139,7 +139,7 @@ public class Main extends Application {
 			
 				RecordsCheckoutController controller = loader.getController();
 				controller.setMainApp(this);
-				bookStage.setMaximized(true);// making window fullscreen
+				//bookStage.setMaximized(true);// making window fullscreen
 				bookStage.show();
 			} catch (IOException e) {
 				e.printStackTrace();

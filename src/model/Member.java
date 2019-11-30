@@ -114,6 +114,20 @@ public class Member {
 		return city;
 	}
 
+	
+     @Override
+    public boolean equals(Object obj) {
+    	// TODO Auto-generated method stub
+    	 if(obj instanceof Member)
+    	    	return this.getFirstName().equals(((Member)obj).getFirstName());
+    	 else
+    		 return false;
+    }
+     @Override
+    public int hashCode() {
+    	// TODO Auto-generated method stub
+    	return firstName.hashCode();
+    }
 
 	
 }
