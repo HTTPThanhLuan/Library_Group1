@@ -1,10 +1,5 @@
 package model;
 
-import java.time.LocalDate;
-
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -17,29 +12,38 @@ public class Member {
 	private  SimpleStringProperty email;
 	private  SimpleStringProperty username;
 	private  SimpleStringProperty password;
+	private Role role; 
 	
 	/**
 	 * Default constructor.
 	 */
 	public Member() {
-		this(null, null);
+		this(null, null, null, null, null, null,null);
 	}
 
 	/**
 	 * Constructor with some initial data.
 	 *
-	 * @param firstName
-	 * @param lastName
+	 * 
+	 * 
 	 */
-	public Member(String firstName, String lastName) {
+	public Member(String firstName, String lastName,String street,String postalCode,String city,String email,String rolevalue) {
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
 
-		// Some initial dummy data, just for convenient testing.
-		this.street = new SimpleStringProperty("some street");
-		this.postalCode = new SimpleStringProperty("1234");
-		this.city = new SimpleStringProperty("some city");
-		this.email = new SimpleStringProperty("mahlet@gmail.com");
+		
+		this.street = new SimpleStringProperty(street);
+		this.postalCode = new SimpleStringProperty(postalCode);
+		this.city = new SimpleStringProperty(city);
+		this.email = new SimpleStringProperty(email);
+		this.username = new SimpleStringProperty(email);
+		this.password = new SimpleStringProperty("123");
+		if(rolevalue=="ADMIN") 
+			this.role=Role.ADMIN;
+		else if(rolevalue=="LIBRARIAN")
+			this.role=Role.LIBRARIAN;
+		else if(rolevalue=="BOTH") 
+			this.role=Role.BOTH;
 	}
 	public String getFirstName() {
 		return firstName.get();
@@ -114,20 +118,30 @@ public class Member {
 		return city;
 	}
 
-	
-     @Override
-    public boolean equals(Object obj) {
-    	// TODO Auto-generated method stub
-    	 if(obj instanceof Member)
-    	    	return this.getFirstName().equals(((Member)obj).getFirstName());
-    	 else
-    		 return false;
-    }
-     @Override
-    public int hashCode() {
-    	// TODO Auto-generated method stub
-    	return firstName.hashCode();
-    }
+	public void setusername(String username) {
+		this.username.set(username);
+	}
 
+	public StringProperty usernameProperty() {
+		return username;
+	}
+	public void setpassword(String password) {
+		this.password.set(password);
+	}
+
+	public StringProperty password() {
+		return password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+
+	
 	
 }
