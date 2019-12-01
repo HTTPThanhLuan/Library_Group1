@@ -45,7 +45,7 @@ public class MemberController implements Initializable {
 	    private Button btnPackages;
 
 	    @FXML
-	    private Button btnSettings;
+	    private Button btnBookCheckout;
 
 	    @FXML
 	    private Button btnSignout;
@@ -186,6 +186,7 @@ public class MemberController implements Initializable {
 		}
 	}
 	public void handleClicks(ActionEvent actionEvent) throws Exception {
+		System.out.println(actionEvent.getSource());
         if (actionEvent.getSource() == btnMember) {
         	mainm.showData();
         	
@@ -196,6 +197,10 @@ public class MemberController implements Initializable {
         
         if (actionEvent.getSource() == btnCheckOutRecord) {
         	mainm.showCheckOutBookRecord();
+        }
+        
+        if (actionEvent.getSource() == btnBookCheckout) {
+        	mainm.showBookCheckoutScreen();
         }
        
     }
