@@ -1,7 +1,5 @@
 package view;
 
-import com.sun.xml.internal.ws.org.objectweb.asm.Label;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TableColumn;
