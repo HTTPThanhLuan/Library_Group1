@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BookCheckoutController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="199.0" style="-fx-background-color: #05071F;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/user.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="50.0" />
+               </VBox.margin></ImageView>
+            <Label text="Librarian" textFill="#e7e5e5">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="btnHome" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClickHomeButton" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Overview" textFill="#e7e5e5">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Home_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnMember" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClickMemberButton" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Add Member">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Person_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnBook" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClickBookButton" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Books">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Xbox_Menu_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnBookCheckout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Checkout Book">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Slider__32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Sign Out">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Sign_Out_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+         </children>
+      </VBox>
+      <StackPane layoutX="190.0" prefHeight="576.0" prefWidth="600.0" style="-fx-background-color: #02030A;">
+         <children>
+            <Pane fx:id="pnlBookCheckout" prefHeight="554.0" prefWidth="793.0">
+               <children>
+                  <TextField fx:id="memberIDInput" layoutX="199.0" layoutY="49.0" onAction="#handleSearchUserAction" prefHeight="27.0" prefWidth="183.0" promptText="input user ID" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <Label layoutX="57.0" layoutY="25.0" text="Library  Management Application " textFill="#e7e5e5">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="615.0" spacing="80.0" style="-fx-background-color: #02030A;">
+                     <children>
+                        <AnchorPane prefHeight="216.0" prefWidth="552.0">
+                           <children>
+                              <Label text="User Information" />
+                              <GridPane layoutY="9.0" prefHeight="209.0" prefWidth="615.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="First Name" />
+                                    <Label fx:id="firstNameLabel" layoutX="10.0" layoutY="37.0" GridPane.columnIndex="1" />
+                                    <Label layoutX="10.0" layoutY="37.0" text="Last Name" GridPane.rowIndex="1" />
+                                    <Label fx:id="lastNameLabel" layoutX="10.0" layoutY="107.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label layoutX="10.0" layoutY="107.0" text="Email" GridPane.rowIndex="2" />
+                                    <Label fx:id="emailLabel" layoutX="10.0" layoutY="176.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <Label fx:id="userNotFoundLabel" layoutX="283.0" layoutY="-4.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+   </HBox>
+               
+               <HBox alignment="BOTTOM_RIGHT" layoutX="179.0" layoutY="400.0" prefHeight="53.0" prefWidth="328.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="249.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="600.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Search_52px.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="57.0" layoutY="52.0" text="&gt;Book Checkout" textFill="#e7e5e5">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="checkoutBtn" layoutX="433.0" layoutY="550.0" mnemonicParsing="false" onAction="#handleCheckoutAction" text="Checkout" />
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="309.0" prefHeight="60.0" prefWidth="630.0" spacing="80.0" style="-fx-background-color: #02030A;">
+                     <children>
+                        <AnchorPane prefHeight="216.0" prefWidth="552.0">
+                           <children>
+                              <Label text="Book Information" />
+                              <GridPane layoutY="9.0" prefHeight="209.0" prefWidth="615.0">
+                                 <children>
+                                    <Label text="Title" />
+                                    <Label fx:id="titleLabel" layoutX="10.0" layoutY="37.0" GridPane.columnIndex="1" />
+                                    <Label layoutX="10.0" layoutY="37.0" text="Author" GridPane.rowIndex="1" />
+                                    <Label fx:id="authorLabel" layoutX="10.0" layoutY="107.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label layoutX="10.0" layoutY="107.0" text="Publisher" GridPane.rowIndex="2" />
+                                    <Label fx:id="publisherLabel" layoutX="10.0" layoutY="176.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <Label fx:id="bookNotFoundLabel" layoutX="316.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="bookIDInput" layoutX="407.0" layoutY="49.0" onAction="#handleSearchBookAction" prefHeight="27.0" prefWidth="183.0" promptText="input book ID" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+   <effect>
+      <DropShadow color="#1b1eeb" />
+   </effect>
+</AnchorPane>
