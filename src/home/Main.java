@@ -157,23 +157,6 @@ public class Main extends Application {
 				e.printStackTrace();
 			}
 		}
-		
-	public void showBookCheckoutScreen() {
-		try {
-			System.out.println("showScreen");
-			Stage bookCheckoutStage = new Stage();
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/BookCheckout.fxml"));
-			Pane view = (Pane) loader.load();
-			Scene scene = new Scene(view, 850, 650);
-	        
-	        scene.getStylesheets().add(getClass().getResource("../view/BookCheckout.css").toExternalForm());
-	        bookCheckoutStage.setScene(scene);
-	        bookCheckoutStage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public boolean showBookEditDialog(Book book) {
 		try {

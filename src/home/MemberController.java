@@ -45,7 +45,7 @@ public class MemberController implements Initializable {
 	    private Button btnPackages;
 
 	    @FXML
-	    private Button btnBookCheckout;
+	    private Button btnSettings;
 
 	    @FXML
 	    private Button btnSignout;
@@ -107,19 +107,19 @@ public class MemberController implements Initializable {
     
     public void addData() {
 		// Add some sample data
- 	data.add(new Member("Hans", "Muster","12th Avenue","52240","FairField","mahi1@gmail.com","ADMIN"));
-    	data.add(new Member("Ruth", "Mueller","Avenue","52240","FairField","mahi2@gmail.com","ADMIN"));
-		data.add(new Member("Heinz", "Kurz","135","52240","FairField","mahi3@gmail.com","ADMIN"));
-		data.add(new Member("Cornelia", "Meier","Avenue","52240","FairField","mahi4@gmail.com","ADMIN"));
-		data.add(new Member("Werner", "Meyer","Avenue","52240","FairField","mahi5@gmail.com","LIBRARIAN"));
-		data.add(new Member("Lydia", "Kunz","Avenue","52240","FairField","mahi6@gmail.com","LIBRARIAN"));
-		data.add(new Member("Anna", "Best","Avenue1","52240","FairField","mahi7@gmail.com","LIBRARIAN"));
-		data.add(new Member("Stefan", "Meier","Avenue2","52240","FairField","mahi8@gmail.com","BOTH"));
-		data.add(new Member("Martin", "Mueller","Avenue3","52240","FairField","mahi9@gmail.com","BOTH"));
-
-    }
+    	data.add(new Member("Hans", "Muster"));
+    	data.add(new Member("Ruth", "Mueller"));
+		data.add(new Member("Heinz", "Kurz"));
+		data.add(new Member("Cornelia", "Meier"));
+		data.add(new Member("Werner", "Meyer"));
+		data.add(new Member("Lydia", "Kunz"));
+		data.add(new Member("Anna", "Best"));
+		data.add(new Member("Stefan", "Meier"));
+		data.add(new Member("Martin", "Mueller"));
+	}
     
-    // add this function for getting the data list of members
+    
+    //ThanhLuanTran add this function for getting the data list of memembers
     public ObservableList<Member> getMembers(){
     	
     	   data = FXCollections.observableArrayList();
@@ -179,14 +179,13 @@ public class MemberController implements Initializable {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(mainm.getStage());
 			alert.setTitle("No Selection");
-			alert.setHeaderText("No Member Selected");
-			alert.setContentText("Please select a Member in the table.");
+			alert.setHeaderText("No Person Selected");
+			alert.setContentText("Please select a person in the table.");
 
 			alert.showAndWait();
 		}
 	}
 	public void handleClicks(ActionEvent actionEvent) throws Exception {
-		System.out.println(actionEvent.getSource());
         if (actionEvent.getSource() == btnMember) {
         	mainm.showData();
         	
@@ -197,10 +196,6 @@ public class MemberController implements Initializable {
         
         if (actionEvent.getSource() == btnCheckOutRecord) {
         	mainm.showCheckOutBookRecord();
-        }
-        
-        if (actionEvent.getSource() == btnBookCheckout) {
-        	mainm.showBookCheckoutScreen();
         }
        
     }

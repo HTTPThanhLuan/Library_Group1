@@ -35,14 +35,6 @@ public class Book {
 		this.image=new ImageView("/imagebooks/007149216X.jpg");
 	}
 
-	public Book(String id, String title, String author, String publisher, String isbn) {
-		this.id = new SimpleStringProperty(id);
-		this.title = new SimpleStringProperty(title);
-		this.author = new SimpleStringProperty(author);
-		this.publisher = new SimpleStringProperty(publisher);
-		this.isbn = new SimpleStringProperty(isbn);
-	}
-	
 	public Book(String title, String author) {
 		this.id = new SimpleStringProperty(UUID.randomUUID().toString());
 		this.title = new SimpleStringProperty(title);
