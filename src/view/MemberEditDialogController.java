@@ -3,9 +3,11 @@ package view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Member;
+import model.Role;
 
 
 public class MemberEditDialogController {
@@ -22,6 +24,10 @@ public class MemberEditDialogController {
 	private TextField cityField;
 	@FXML
 	private TextField email;
+	@FXML
+	private CheckBox librarian;
+	@FXML
+	private CheckBox admin;
 
 	private Stage dialogStage;
 	private Member member;
@@ -46,7 +52,16 @@ public class MemberEditDialogController {
 		streetField.setText(member.getStreet());
 		postalCodeField.setText(member.getPostalCode());
 		cityField.setText(member.getCity());
-	
+		email.setText(member.getEmail());
+		if(member.getRole()==Role.ADMIN)
+			admin.setSelected(true);
+		if(member.getRole()==Role.LIBRARIAN)
+			librarian.setSelected(true);
+		if(member.getRole()==Role.BOTH) {
+			admin.setSelected(true);
+			librarian.setSelected(true);
+		}
+		
 		
 	}
 
@@ -73,6 +88,20 @@ public class MemberEditDialogController {
 			member.setStreet(streetField.getText());
 			member.setPostalCode(postalCodeField.getText());
 			member.setCity(cityField.getText());
+			member.setEmail(email.getText());
+			if(librarian.isSelected()) {
+				Role role=Role.LIBRARIAN;
+				member.setRole(role);
+			}
+			if(admin.isSelected()) {
+				Role role=Role.ADMIN;
+				member.setRole(role);
+			}
+			if(librarian.isSelected() & admin.isSelected() ) {
+				Role role=Role.BOTH;
+				member.setRole(role);
+			}
+				
 			okClicked = true;
 			dialogStage.close();
 		}
@@ -94,7 +123,7 @@ public class MemberEditDialogController {
 	 */
 	private boolean isInputValid() {
 		String errorMessage = "";
-		/*
+		
 		if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
 			errorMessage += "No valid first name!\n";
 		}
@@ -107,19 +136,14 @@ public class MemberEditDialogController {
 
 		if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
 			errorMessage += "No valid postal code!\n";
-		} else {
-			// try to parse the postal code into an int.
-			try {
-				Integer.parseInt(postalCodeField.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "No valid postal code (must be an integer)!\n";
-			}
-		}
+		} 
 
 		if (cityField.getText() == null || cityField.getText().length() == 0) {
 			errorMessage += "No valid city!\n";
 		}
-		 	*/
+		if (email.getText() == null || email.getText().length() == 0) {
+			errorMessage += "No email !\n";
+		}
 		
 
 		if (errorMessage.length() == 0) {

@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,10 +13,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import model.ListCheckOutRecord;
 import model.Member;
 
 
@@ -107,19 +110,19 @@ public class MemberController implements Initializable {
     
     public void addData() {
 		// Add some sample data
-    	data.add(new Member("Hans", "Muster"));
-    	data.add(new Member("Ruth", "Mueller"));
-		data.add(new Member("Heinz", "Kurz"));
-		data.add(new Member("Cornelia", "Meier"));
-		data.add(new Member("Werner", "Meyer"));
-		data.add(new Member("Lydia", "Kunz"));
-		data.add(new Member("Anna", "Best"));
-		data.add(new Member("Stefan", "Meier"));
-		data.add(new Member("Martin", "Mueller"));
-	}
+ 	data.add(new Member("Hans", "Muster","12th Avenue","52240","FairField","mahi1@gmail.com","ADMIN"));
+    	data.add(new Member("Ruth", "Mueller","Avenue","52240","FairField","mahi2@gmail.com","ADMIN"));
+		data.add(new Member("Heinz", "Kurz","135","52240","FairField","mahi3@gmail.com","ADMIN"));
+		data.add(new Member("Cornelia", "Meier","Avenue","52240","FairField","mahi4@gmail.com","ADMIN"));
+		data.add(new Member("Werner", "Meyer","Avenue","52240","FairField","mahi5@gmail.com","LIBRARIAN"));
+		data.add(new Member("Lydia", "Kunz","Avenue","52240","FairField","mahi6@gmail.com","LIBRARIAN"));
+		data.add(new Member("Anna", "Best","Avenue1","52240","FairField","mahi7@gmail.com","LIBRARIAN"));
+		data.add(new Member("Stefan", "Meier","Avenue2","52240","FairField","mahi8@gmail.com","BOTH"));
+		data.add(new Member("Martin", "Mueller","Avenue3","52240","FairField","mahi9@gmail.com","BOTH"));
+
+    }
     
-    
-    //ThanhLuanTran add this function for getting the data list of memembers
+    // add this function for getting the data list of members
     public ObservableList<Member> getMembers(){
     	
     	   data = FXCollections.observableArrayList();
@@ -179,8 +182,8 @@ public class MemberController implements Initializable {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(mainm.getStage());
 			alert.setTitle("No Selection");
-			alert.setHeaderText("No Person Selected");
-			alert.setContentText("Please select a person in the table.");
+			alert.setHeaderText("No Member Selected");
+			alert.setContentText("Please select a Member in the table.");
 
 			alert.showAndWait();
 		}
@@ -199,5 +202,7 @@ public class MemberController implements Initializable {
         }
        
     }
+	
+	 
     
 }
