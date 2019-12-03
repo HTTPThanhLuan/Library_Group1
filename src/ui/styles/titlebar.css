@@ -1,0 +1,13 @@
+#btnClose {
+    -fx-background-color: #0984e3;
+    -fx-background-radius: 0;
+}
+
+#btnClose:hover {
+    -fx-background-color: #ff7675;
+    -fx-background-radius: 0;
+}
+
+#titleBar {
+    -fx-background-color: #0984e3;
+}

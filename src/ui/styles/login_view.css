@@ -1,0 +1,30 @@
+#paneLeft {
+    -fx-background-color: #2d3436;
+}
+
+#paneRight {
+    -fx-background-color: #ffffff;
+}
+
+#btnExit {
+    -fx-background-radius: 0;
+    -fx-background-color: #fff;
+    -fx-padding: 7px 15px 7px 15px;
+}
+
+#btnExit:focused,
+#btnExit:hover {
+    -fx-background-color: red;
+}
+
+#btnExit:hover,
+#btnExit:focused {
+    -fx-background-color: red;
+    -fx-text-fill: black;
+}
+
+#btnLogin {
+    -fx-background-color: #1a75ff;
+    -fx-text-fill: #ffffff;
+}
+
