@@ -1,7 +1,5 @@
 package home;
 
-import static ui.Navigator.get;
-
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -18,11 +16,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Book;
 import model.Member;
-import ui.util.UIUtils;
-import view.BookEditDialogController;
-import view.BookOverviewController;
-import view.MemberEditDialogController;
-import view.RecordsCheckoutController;
+import util.UIUtils;
+import controller.BookEditDialogController;
+import controller.BookOverviewController;
+import controller.MemberEditDialogController;
+import controller.RecordsCheckoutController;
 
 public class Main extends Application {
 	private ObservableList<Book> data = FXCollections.observableArrayList();
@@ -64,10 +62,10 @@ public class Main extends Application {
 //    	 get().register(MemberController.class.toString(), primaryStage);
     	 Stage loginStage = new Stage();
     	 showLogin(loginStage);
-    	 rootLayout = FXMLLoader.load(getClass().getResource("../view/ListMember.fxml"));
+    	 rootLayout = FXMLLoader.load(getClass().getResource("../view/MainPageView.fxml"));
          Scene scene = new Scene(rootLayout, 850, 450);
         
-         scene.getStylesheets().add(getClass().getResource("../view/style.css").toExternalForm());
+         scene.getStylesheets().add(getClass().getResource("../resource/styles/style.css").toExternalForm());
          stage.setScene(scene);
          stage.show();
     }
@@ -190,8 +188,8 @@ public class Main extends Application {
 	
 	public void showLogin(Stage primaryStage) {
 		VBox topContainer = new VBox();
-        Parent loginRoot = UIUtils.lookupParent("/ui/view/LoginView.fxml");
-        loginRoot.getStylesheets().add(getClass().getResource("/ui/styles/login_view.css").toExternalForm());
+        Parent loginRoot = UIUtils.lookupParent("/view/LoginView.fxml");
+        loginRoot.getStylesheets().add(getClass().getResource("/resource/styles/login_view.css").toExternalForm());
         loginRoot.setOnMousePressed(e -> {
             xOffset = e.getSceneX();
             yOffset = e.getSceneY();

@@ -15,8 +15,8 @@ public class UserData {
         user1.setLastName("Tang");
         user1.setPostalCode("52556");
         user1.setEmail("lamtang@yahoo.com");
-        user1.setUsername("admin");
-        user1.setPassword("admin");
+        user1.setUsername("lam");
+        user1.setPassword("lam");
         user1.setRole(Role.BOTH);
         users.add(user1);
         User user2 = new User();
@@ -25,8 +25,8 @@ public class UserData {
         user2.setLastName("Nguyen");
         user2.setPostalCode("52556");
         user2.setEmail("vongnguyen@yahoo.com");
-        user2.setUsername("vong");
-        user2.setPassword("vong");
+        user2.setUsername("admin");
+        user2.setPassword("admin");
         user2.setRole(Role.ADMIN);
         users.add(user2);
         User user3 = new User();

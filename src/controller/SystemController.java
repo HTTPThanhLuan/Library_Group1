@@ -1,28 +1,40 @@
-package business;
+package controller;
 
 import dataaccess.UserDataAccess;
 import model.Role;
 import model.User;
-import ui.LibBaseView;
+import view.LibBaseView;
 
 import javax.security.auth.login.LoginException;
 
 public class SystemController implements ControllerInterface {
-    public static Role currentRole = null;
 
-    public static boolean isAdmin() {
+    public static final SystemController INSTANCE = new SystemController();
+
+    public static SystemController getInstance() {
+        return INSTANCE;
+    }
+
+
+    public Role currentRole = null;
+
+    public boolean isAdmin() {
         return (currentRole == Role.ADMIN);
     }
 
-    public static boolean isLibrarian() {
+    public boolean isLibrarian() {
         return (currentRole == Role.LIBRARIAN);
     }
 
-    public static boolean isSuperAdmin() {
+    public boolean isSuperAdmin() {
         return (currentRole == Role.BOTH);
     }
 
-    public static boolean canAccess(LibBaseView libBaseView) {
+    private SystemController() {
+
+    }
+
+    public boolean canAccess(LibBaseView libBaseView) {
         Role[] allowed = libBaseView.requireAuth();
         if (allowed == null || allowed.length < 1) {
             return true;

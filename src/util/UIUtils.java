@@ -1,4 +1,4 @@
-package ui.util;
+package util;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +8,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
-import ui.DashboardBaseView;
-import ui.Navigator;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -43,11 +41,6 @@ public final class UIUtils {
         return root;
     }
 
-    public static void bindWindowCloseEvent(Window window) {
-        window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, e -> {
-            Navigator.get().show(DashboardBaseView.class.toString());
-        });
-    }
 
     public static void showAlertDialog(AlertType type, String title, String header, String content) {
         Alert alert = new Alert(type);

@@ -1,8 +1,9 @@
-package home;
+package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import home.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,7 +25,7 @@ import model.Member;
 
 
 
-public class MemberController implements Initializable {
+public class MainPageController implements Initializable {
 	   @FXML
 	    private VBox pnItems = null;
 	    @FXML
@@ -84,6 +85,8 @@ public class MemberController implements Initializable {
 
     // The table's data
     ObservableList<Member> data;
+
+	Main mainm= new Main();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -103,10 +106,23 @@ public class MemberController implements Initializable {
        
         data = FXCollections.observableArrayList();
         addData();
+		checkPermission();
         itemTbl.setItems(data);
     }    
 
     static long nextId = 1;
+
+    public void checkPermission() {
+    	if(SystemController.getInstance().isAdmin()) {
+    		btnBook.setVisible(true);
+			btnMember.setVisible(true);
+			btnCheckOutRecord.setVisible(false);
+		} else if(SystemController.getInstance().isLibrarian()) {
+			btnBook.setVisible(false);
+			btnMember.setVisible(false);
+			btnCheckOutRecord.setVisible(true);
+		}
+	}
     
     public void addData() {
 		// Add some sample data
@@ -131,8 +147,7 @@ public class MemberController implements Initializable {
     	 
     	 return data;
     }
-  
-    Main mainm= new Main();
+
     @FXML
     private void handleButtonAction(ActionEvent event) {
     	Member member = new Member();

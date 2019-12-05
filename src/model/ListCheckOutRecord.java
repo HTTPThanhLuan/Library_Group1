@@ -2,23 +2,15 @@ package model;
 
 
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Date;
 
 import home.Main;
-import home.MemberController;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import controller.MainPageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import util.DateUtil;
 
 public class ListCheckOutRecord {
 	
@@ -31,7 +23,7 @@ public class ListCheckOutRecord {
 	 
 	 private static List<Member> listMember () {
 		 
-		 MemberController member=new MemberController();
+		 MainPageController member=new MainPageController();
 			List<Member> listMember =member.getMembers();
 			
 			return listMember;

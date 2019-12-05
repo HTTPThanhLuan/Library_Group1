@@ -1,4 +1,4 @@
-package ui.controller;
+package controller;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
