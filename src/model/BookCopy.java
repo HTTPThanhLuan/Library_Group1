@@ -1,7 +1,8 @@
 package model;
 
 public class BookCopy {
-  int id ;
-  String copynumber;
+  private int id ;
+  private Book book;
+  private String status; 
   
 }
