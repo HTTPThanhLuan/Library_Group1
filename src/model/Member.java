@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Member {
+	private StringProperty id;
 	private  SimpleStringProperty firstName;
 	private  SimpleStringProperty lastName;
 	private  SimpleStringProperty street;
@@ -45,6 +46,19 @@ public class Member {
 		else if(rolevalue=="BOTH") 
 			this.role=Role.BOTH;
 	}
+	
+	public Member(String id, String firstName, String lastName) {
+		this.id = new SimpleStringProperty(id);
+		this.firstName = new SimpleStringProperty(firstName);
+		this.lastName = new SimpleStringProperty(lastName);
+
+		// Some initial dummy data, just for convenient testing.
+		this.street = new SimpleStringProperty("some street");
+		this.postalCode = new SimpleStringProperty("1234");
+		this.city = new SimpleStringProperty("some city");
+		this.email = new SimpleStringProperty("mahlet@gmail.com");
+	}
+	
 	public String getFirstName() {
 		return firstName.get();
 	}
@@ -141,7 +155,9 @@ public class Member {
 		this.role = role;
 	}
 	
-
+	public String getId() {
+		return id.get();
+	}
 	
 	
 }

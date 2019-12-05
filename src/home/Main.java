@@ -215,4 +215,21 @@ public class Main extends Application {
   
 	}
 
+	public void showBookCheckoutScreen() {
+		try {
+			System.out.println("showScreen");
+			Stage bookCheckoutStage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/checkout/BookCheckout.fxml"));
+			Pane view = (Pane) loader.load();
+			Scene scene = new Scene(view, 850, 650);
+
+			scene.getStylesheets().add(getClass().getResource("../view/checkout/BookCheckout.css").toExternalForm());
+			bookCheckoutStage.setScene(scene);
+			bookCheckoutStage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
