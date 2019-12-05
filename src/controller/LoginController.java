@@ -1,7 +1,5 @@
-package ui.controller;
+package controller;
 
-import business.ControllerInterface;
-import business.SystemController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,9 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import ui.DashboardBaseView;
-import ui.util.UIUtils;
-import ui.Navigator;
+import util.UIUtils;
 import javafx.stage.Stage;
 
 
@@ -28,9 +24,7 @@ public class LoginController {
 
     @FXML protected void onBtnLoginClicked(ActionEvent e) {
         try {
-            ControllerInterface c = new SystemController();
-            c.login(txtUser.getText().trim(), txtPassword.getText().trim());
-//            Navigator.get().show(DashboardBaseView.class.toString());
+            SystemController.getInstance().login(txtUser.getText().trim(), txtPassword.getText().trim());
             txtUser.setText("");
             txtPassword.setText("");
             Stage stage = (Stage) btnLogin.getScene().getWindow();
