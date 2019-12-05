@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,10 +13,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import model.ListCheckOutRecord;
 import model.Member;
 
 
@@ -45,7 +48,7 @@ public class MemberController implements Initializable {
 	    private Button btnPackages;
 
 	    @FXML
-	    private Button btnBookCheckout;
+	    private Button btnSettings;
 
 	    @FXML
 	    private Button btnSignout;
@@ -186,7 +189,6 @@ public class MemberController implements Initializable {
 		}
 	}
 	public void handleClicks(ActionEvent actionEvent) throws Exception {
-		System.out.println(actionEvent.getSource());
         if (actionEvent.getSource() == btnMember) {
         	mainm.showData();
         	
@@ -198,11 +200,9 @@ public class MemberController implements Initializable {
         if (actionEvent.getSource() == btnCheckOutRecord) {
         	mainm.showCheckOutBookRecord();
         }
-        
-        if (actionEvent.getSource() == btnBookCheckout) {
-        	mainm.showBookCheckoutScreen();
-        }
        
     }
+	
+	 
     
 }
