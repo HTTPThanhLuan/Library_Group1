@@ -1,0 +1,29 @@
+@startuml
+actor Actor
+Actor -> LoginView: Enter user name and password
+LoginView -> LoginController: 1: click to Login
+LoginController -> SystemController: 2: c = new SystemController()
+SystemController -> SystemController: 3: login(userName, Password)
+SystemController -> UserDataAccess: 4: userDataAccess = new UserDataAccess()
+UserDataAccess -> UserDataAccess: 5: userDataAccess.getUserByUserName(userId)
+UserDataAccess --> UserDataAccess: 6: loginUser
+Group check login fail
+UserDataAccess -> LoginException: 7: Login fail
+LoginException -> LoginController: 8: throw LoginException
+LoginController -> UIUtils: 9: showAlertDialog("Login Error")
+UIUtils -> LoginView: click close AlertDialog
+End
+Group check login success
+UserDataAccess -> UserDataAccess: 7: currentRole = loginUser.getRole();
+LoginController -> MainScreen: 8: open MainScreen and check currentRole
+Group user is Admin
+MainScreen -> MainScreen: 9: regiserMenuForAdmin()
+End
+Group user is Libarian
+MainScreen -> MainScreen: 9: regiserMenuForLibrian()
+End
+Group user is Both
+MainScreen -> MainScreen: 9: regiserMenuForBoth()
+End
+End
+@enduml
