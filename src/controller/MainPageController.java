@@ -17,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.ListCheckOutRecord;
@@ -48,8 +49,6 @@ public class MainPageController implements Initializable {
 	    @FXML
 	    private Button btnPackages;
 
-	    @FXML
-	    private Button btnSettings;
 
 	    @FXML
 	    private Button btnSignout;
@@ -66,7 +65,8 @@ public class MainPageController implements Initializable {
 	    @FXML
 	    private Pane pnlMenus;
 
-	
+		@FXML
+		private HBox listButtonsEditPersion;
 		
 		
 
@@ -120,6 +120,8 @@ public class MainPageController implements Initializable {
 		} else if(SystemController.getInstance().isLibrarian()) {
 			btnBook.setVisible(false);
 			btnMember.setVisible(false);
+			listButtonsEditPersion.setVisible(false);
+			itemTbl.setVisible(false);
 			btnCheckOutRecord.setVisible(true);
 		}
 	}
