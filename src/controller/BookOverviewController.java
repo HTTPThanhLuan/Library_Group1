@@ -7,18 +7,27 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 import javafx.beans.value.ObservableValue;
-
+import javafx.collections.FXCollections;
 import home.Main;
 import model.Book;
+import model.BookCopy;
 
 public class BookOverviewController {
 	@FXML
 	private TableView<Book> table;
 	@FXML
 	private TableColumn<Book, String> titleColumn;
+	
+	@FXML
+	private TableView<BookCopy> tableBookCopy;
+	@FXML
+	private TableColumn<BookCopy, String> idColumn;
+	@FXML
+	private TableColumn<BookCopy, String> statusColumn;
 
 	@FXML
 	private Label idLabel;
@@ -30,6 +39,8 @@ public class BookOverviewController {
 	private Label publisherLabel;
 	@FXML
 	private Label isbnLabel;
+	@FXML
+	private Label numberOfCopyLabel;
 
 
 	// Reference to the main application.
@@ -81,6 +92,12 @@ public class BookOverviewController {
 			authorLabel.setText(book.getAuthor());
 			publisherLabel.setText(book.getPublisher());
 			isbnLabel.setText(book.getIsbn());
+			numberOfCopyLabel.setText(book.getNumberOfCopy().toString());
+			
+			idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+			statusColumn.setCellValueFactory(new PropertyValueFactory<>("Status"));
+			if (book.getBookCopy() != null) 
+				tableBookCopy.setItems(FXCollections.observableArrayList(book.getBookCopy()));
 		} else {
 			// if null, remove all the text.
 			idLabel.setText("");
@@ -88,6 +105,7 @@ public class BookOverviewController {
 			authorLabel.setText("");
 			publisherLabel.setText("");
 			isbnLabel.setText("");
+			numberOfCopyLabel.setText("");
 		}
 	}
 
