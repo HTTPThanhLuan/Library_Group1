@@ -1,11 +1,11 @@
 @startuml
 actor Actor
-Actor -> LoginView: Enter user name and password
-LoginView -> LoginController: 1: click to Login
+Actor -> LoginView: Login to Library System
+LoginView -> LoginController: 1: login()
 LoginController -> SystemController: 2: c = new SystemController()
 SystemController -> SystemController: 3: login(userName, Password)
 SystemController -> UserDataAccess: 4: userDataAccess = new UserDataAccess()
-UserDataAccess -> UserDataAccess: 5: userDataAccess.getUserByUserName(userId)
+UserDataAccess -> UserDataAccess: 5: getUserByUserName(userId)
 UserDataAccess --> UserDataAccess: 6: loginUser
 Group check login fail
 UserDataAccess -> LoginException: 7: Login fail
