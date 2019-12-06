@@ -16,7 +16,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" 
+minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" 
+style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/8.0.171" 
+xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainPageController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="199.0" style="-fx-background-color: #05071F;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -33,8 +36,11 @@
                </VBox.margin>
             </Label>
            
-            <Button fx:id="btnMember" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false"
-                    prefHeight="42.0" prefWidth="259.0" stylesheets="@../resource/styles/style.css" text="Members">
+            <Button fx:id="btnMember" 
+            alignment="BASELINE_LEFT" graphicTextGap="22.0" 
+            mnemonicParsing="false"
+                    prefHeight="42.0" prefWidth="259.0" 
+                    stylesheets="@../resource/styles/style.css" text="Members">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -114,12 +120,12 @@
                     
            			<children>
    
-    <TableView fx:id="itemTbl" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #02030A; -fx-background-radius: 5; -fx-background-insets: 0;">
+    <TableView fx:id="memberTbl" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #02030A; -fx-background-radius: 5; -fx-background-insets: 0;">
       <columns>
-        <TableColumn fx:id="itemIdCol" prefWidth="139.0" text="First Name" />
-        <TableColumn fx:id="itemNameCol" prefWidth="149.0" text="Last Name" />
-        <TableColumn fx:id="itemQtyCol" prefWidth="151.0" text="Email" />
-        <TableColumn fx:id="itemPriceCol" prefWidth="61.0" text="Street" />
+        <TableColumn fx:id="firstname" prefWidth="139.0" text="First Name" />
+        <TableColumn fx:id="lastname" prefWidth="149.0" text="Last Name" />
+        <TableColumn fx:id="email" prefWidth="151.0" text="Email" />
+        <TableColumn fx:id="street" prefWidth="61.0" text="Street" />
       </columns>
     </TableView>
                  
