@@ -1,7 +1,9 @@
 package controller;
 
+import java.util.UUID;
 import java.util.regex.Pattern;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,7 +28,9 @@ public class MemberEditDialogController {
 	private TextField cityField;
 	@FXML
 	private TextField email;
-
+	@FXML
+	private TextField memberIDField;
+	
 	@FXML
 	private CheckBox admin;
 
@@ -46,6 +50,13 @@ public class MemberEditDialogController {
 
 	
 	public void setMember(Member member) {
+		if(member.getmemberID()==null) {
+			String id = UUID.randomUUID().toString();
+			memberIDField.setText(id);
+		}else {
+			
+			memberIDField.setText(member.getmemberID());
+		}
 		this.member = member;
 		firstNameField.setText(member.getFirstName());
 		lastNameField.setText(member.getLastName());
@@ -53,6 +64,7 @@ public class MemberEditDialogController {
 		postalCodeField.setText(member.getPostalCode());
 		cityField.setText(member.getCity());
 		email.setText(member.getEmail());
+		
 	}
 
 	

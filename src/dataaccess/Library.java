@@ -124,21 +124,21 @@ public class Library {
 	}
 	
 	private void initializeMembers() {
-		Member m = new Member("Hans", "Muster", "12th Avenue", "52240", "FairField", "mahi1@gmail.com");
+		Member m = new Member("Hans", "Muster", "12th Avenue", "52240", "FairField", "mahi1@gmail.com","123e4567-e89b-12d3-a456-55664244");
 		members.put(m.getId(), m);
-		m = new Member("Heinz", "Kurz", "135", "52240", "FairField", "mahi3@gmail.com");
+		m = new Member("Heinz", "Kurz", "135", "52240", "FairField", "mahi3@gmail.com","123e4567-12d3-55664244");
 		members.put(m.getId(), m);
-		m = new Member("Cornelia", "Meier", "Avenue", "52240", "FairField", "mahi4@gmail.com");
+		m = new Member("Cornelia", "Meier", "Avenue", "52240", "FairField", "mahi4@gmail.com","123e4567-12d3-a456-55664244");
 		members.put(m.getId(), m);
-		m = new Member("Werner", "Meyer", "Avenue", "52240", "FairField", "mahi5@gmail.com");
+		m = new Member("Werner", "Meyer", "Avenue", "52240", "FairField", "mahi5@gmail.com","123e4567-e89b-a456-55664244");
 		members.put(m.getId(), m);
-		m = new Member("Lydia", "Kunz", "Avenue", "52240", "FairField", "mahi6@gmail.com");
+		m = new Member("Lydia", "Kunz", "Avenue", "52240", "FairField", "mahi6@gmail.com","123e4567-e89b-12d3-55664244");
 		members.put(m.getId(), m);
-		m = new Member("Anna", "Best", "Avenue1", "52240", "FairField", "mahi7@gmail.com");
+		m = new Member("Anna", "Best", "Avenue1", "52240", "FairField", "mahi7@gmail.com","123e456-12d3-a456-55664244");
 		members.put(m.getId(), m);
-		m = new Member("Stefan", "Meier", "Avenue2", "52240", "FairField", "mahi8@gmail.com");
+		m = new Member("Stefan", "Meier", "Avenue2", "52240", "FairField", "mahi8@gmail.com","123e4567-12d3-a456-55664244");
 		members.put(m.getId(), m);
-		m = new Member("Martin", "Mueller", "Avenue3", "52240", "FairField", "mahi9@gmail.com");
+		m = new Member("Martin", "Mueller", "Avenue3", "52240", "FairField", "mahi9@gmail.com","123e4567-55664244");
 		members.put(m.getId(), m);
 	}
 	private void updateBookAndQuantity(Book b, int quantity) {

@@ -13,12 +13,14 @@ public class Member {
 	private  SimpleStringProperty postalCode;
 	private  SimpleStringProperty city;
 	private  SimpleStringProperty email;
+	private  SimpleStringProperty memberID;
+	
 	
 	/**
 	 * Default constructor.
 	 */
 	public Member() {
-		this(null, null, null, null, null, null);
+		this(null, null, null, null, null, null,null);
 	}
 
 	/**
@@ -27,7 +29,7 @@ public class Member {
 	 * 
 	 * 
 	 */
-	public Member(String firstName, String lastName,String street,String postalCode,String city,String email) {
+	public Member(String firstName, String lastName,String street,String postalCode,String city,String email,String memberID) {
 		this.id = new SimpleStringProperty(UUID.randomUUID().toString());
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
@@ -35,6 +37,7 @@ public class Member {
 		this.postalCode = new SimpleStringProperty(postalCode);
 		this.city = new SimpleStringProperty(city);
 		this.email = new SimpleStringProperty(email);
+		this.memberID = new SimpleStringProperty(memberID);
 	}
 	
 	public Member(String id, String firstName, String lastName) {
@@ -87,6 +90,7 @@ public class Member {
 
 	
 	
+	
 	public String getEmail() {
 		return email.get();
 	}
@@ -98,6 +102,22 @@ public class Member {
 	public StringProperty emailProperty() {
 		return email;
 	}
+	
+	
+	
+	public String getmemberID() {
+		return memberID.get();
+	}
+
+	public void setmemberID(String memberID) {
+		this.memberID.set(memberID);
+	}
+
+	public StringProperty memberIDProperty() {
+		return memberID;
+	}
+	
+	
 	public String getPostalCode() {
 		return postalCode.get();
 	}
