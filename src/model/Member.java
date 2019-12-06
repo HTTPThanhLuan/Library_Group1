@@ -146,5 +146,19 @@ public class Member {
 		return id.get();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj instanceof Member)
+		    return this.id.equals(((Member)obj).id);
+		else
+			return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return this.id.hashCode();
+	}
 	
 }

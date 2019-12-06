@@ -1,5 +1,7 @@
 package controller;
 
+import dataaccess.CheckOutRecordDB;
+import dataaccess.ICheckOutRecords;
 import javafx.fxml.FXML;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TableColumn;
@@ -7,10 +9,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.CheckOutRecord;
-import model.ListCheckOutRecord;
 import model.Member;
 
 public class viewRecordCheckoutController {
+	
+	private ICheckOutRecords checkOutRecords;
+	
 	  @FXML
 	    TableView<CheckOutRecord> tableRecord;
 	    
@@ -37,7 +41,13 @@ public class viewRecordCheckoutController {
 	    
 	    private boolean okClicked = false;
 	    
-	    public void showRecord(Member member) {
+	    @FXML
+		private void initialize() {
+	   
+	    	checkOutRecords = new CheckOutRecordDB();
+	    }
+	    
+	    public void showDialog(Member member) {
 
 	    	lbName.setText(member.getFirstName() +" "+ member.getLastName());
 	    	
@@ -61,7 +71,7 @@ public class viewRecordCheckoutController {
 			
 			
 			
-			 tableRecord.setItems(ListCheckOutRecord.getListOfBookCheckOutByMember(member));
+			 tableRecord.setItems(checkOutRecords.getListOfBookCheckOutByMember(member));
 	    }
 	    
 	    /**

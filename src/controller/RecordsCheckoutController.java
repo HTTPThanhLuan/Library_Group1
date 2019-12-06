@@ -4,6 +4,9 @@ package controller;
 import com.sun.glass.ui.*;
 import com.sun.glass.ui.CommonDialogs.ExtensionFilter;
 import com.sun.glass.ui.CommonDialogs.FileChooserResult;
+
+import dataaccess.CheckOutRecordDB;
+import dataaccess.ICheckOutRecords;
 import home.Main;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -16,7 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.CheckOutRecord;
-import model.ListCheckOutRecord;
 import model.Member;
 
 import java.io.File;
@@ -29,6 +31,7 @@ import java.util.ResourceBundle;
 
 public class RecordsCheckoutController {
 
+	private ICheckOutRecords checkOutRecords;
     // The table and columns
     @FXML
     TableView<CheckOutRecord> tableRecord;
@@ -89,13 +92,8 @@ public class RecordsCheckoutController {
 	private void initialize() {
    
 
-
-        // Set up the table data Book Checkout==================================================
-//		MemberController member=new MemberController();
-//		List<Member> listMember =member.getMembers();
-        //ListCheckOutRecord data= Library.getInstance().getCh;
-
-
+    	checkOutRecords=new CheckOutRecordDB();
+    	
         // Setup column of table book checkout==============================================
         tbcTitle.setCellValueFactory(
                 new PropertyValueFactory<CheckOutRecord, String>("titleBook")
@@ -126,12 +124,12 @@ public class RecordsCheckoutController {
 
 
         //Filter CheckOut book==============================================================
-        FilteredList<CheckOutRecord> flBook = new FilteredList(ListCheckOutRecord.getCheckOutRecords(), p -> true);//Pass the data to a filtered list
+        FilteredList<CheckOutRecord> flBook = new FilteredList(checkOutRecords.getCheckOutRecords(), p -> true);//Pass the data to a filtered list
         tableRecord.setItems(flBook);//Set the table's items using the filtered list
 
 
         //Filter CheckOut member===========================================================
-        FilteredList<Member> flMembers = new FilteredList(ListCheckOutRecord.getListOfMemberCheckOut(), p -> true);//Pass the data to a filtered list
+        FilteredList<Member> flMembers = new FilteredList(checkOutRecords.getListOfMemberCheckOut(), p -> true);//Pass the data to a filtered list
         tblMemberCheckOut.setItems(flMembers);//Set the table's items using the filtered list
 
 
@@ -212,7 +210,7 @@ public class RecordsCheckoutController {
                     Member rowData = row.getItem();
                     System.out.println(rowData.getFirstName());
 
-                    showBookEditDialog(rowData);
+                    showBookCheckOutDialog(rowData);
                 }
             });
             return row;
@@ -222,7 +220,7 @@ public class RecordsCheckoutController {
     }
 
 
-    public boolean showBookEditDialog(Member member) {
+    public boolean showBookCheckOutDialog(Member member) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -240,7 +238,8 @@ public class RecordsCheckoutController {
             // Set the person into the controller.
             viewRecordCheckoutController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.showRecord(member);
+                        
+            controller.showDialog(member);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

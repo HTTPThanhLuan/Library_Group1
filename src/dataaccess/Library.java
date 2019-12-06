@@ -22,7 +22,7 @@ public class Library {
 	private Map<String, User> users;
 	private List<CheckOutRecord> checkoutBooks;
 	private static Library libInstance;
-	private Library() {
+	public Library() {
 		books = new HashMap<>();
 		availableBooks = new HashMap<>();
 		members = new HashMap<>();
@@ -76,23 +76,23 @@ public class Library {
 	}
 	
 	private void initializeBooks() {
-		Book b = new Book("1", "Beginning Java Objects", "Jacquie Barker", "Apress", "978-1-4302-0036-9");
+		Book b = new Book("1", "Beginning Java Objects", "Jacquie Barker", "Apress", "978-1-4302-0036-9","/resource/images/007149216X.jpg");
 		updateBookAndQuantity(b, 100);
-		b = new Book("2", "Core Java Volume I Fundamentals", "Cay S. Horstmann", "Prentice Hall", "978-0135166307");
+		b = new Book("2", "Core Java Volume I Fundamentals", "Cay S. Horstmann", "Prentice Hall", "978-0135166307","/resource/images/007149328X.jpg");
 		updateBookAndQuantity(b, 100);
-		b = new Book("3", "The Supreme Awakening", "Craig Pearson", "Maharishi University of Management Press", "978-0923569525");
+		b = new Book("3", "The Supreme Awakening", "Craig Pearson", "Maharishi University of Management Press", "978-0923569525","/resource/images/007222438X.jpg");
 		updateBookAndQuantity(b, 90);
-		b = new Book("4", "Mastering JavaFX 10", "Sergey Grinev", "Packt", "9781788293822");
+		b = new Book("4", "Mastering JavaFX 10", "Sergey Grinev", "Packt", "9781788293822","/resource/images/007222942X.jpg");
 		updateBookAndQuantity(b, 80);
-		b = new Book("5", "Introduction to Algorithms", "Thomas H. Cormen", "The MIT Press", "978-0262033848");
+		b = new Book("5", "Introduction to Algorithms", "Thomas H. Cormen", "The MIT Press", "978-0262033848","/resource/images/012372533X.jpg");
 		updateBookAndQuantity(b, 100);
-		b = new Book("6","Consciousness and the Quantum", "Robert Oates, Jr", "Maharishi University of Management Press", "Not available");
+		b = new Book("6","Consciousness and the Quantum", "Robert Oates, Jr", "Maharishi University of Management Press", "Not available","/resource/images/012387582X.jpg");
 		updateBookAndQuantity(b, 100);
-		b = new Book("7", "Transcendental Meditation", "Maharishi Mahesh Yogi", "Maharishi University of Management Press", "Not available");
+		b = new Book("7", "Transcendental Meditation", "Maharishi Mahesh Yogi", "Maharishi University of Management Press", "Not available","/resource/images/007149216X.jpg");
 		updateBookAndQuantity(b, 100);
-		b = new Book("HTML&CSS: Design and Build Web Sites", "Jon Duckett", "Wiley", "978-1118008188");
+		b = new Book("8","HTML&CSS: Design and Build Web Sites", "Jon Duckett", "Wiley", "978-1118008188","/resource/images/007149216X.jpg");
 		updateBookAndQuantity(b, 100);
-		b = new Book("The Healthy Brain Solution for Women", "Nancy Lonsdorf MD", "Independently published", "978-1792896774");
+		b = new Book("9","The Healthy Brain Solution for Women", "Nancy Lonsdorf MD", "Independently published", "978-1792896774","/resource/images/007149216X.jpg");
 		updateBookAndQuantity(b, 100);
 	}
 	

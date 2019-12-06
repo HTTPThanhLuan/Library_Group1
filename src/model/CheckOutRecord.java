@@ -35,7 +35,7 @@ public class CheckOutRecord {
         this.dueDate = dueDate;
         this.checkIn = false;
 
-        this.image = new ImageView(new Image(util.Image.createImageRanDom()));
+        this.image = book.getImage();  //new ImageView(new Image(util.Image.createImageRanDom()));
     }
 
 

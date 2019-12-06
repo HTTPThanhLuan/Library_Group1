@@ -22,7 +22,7 @@
                         <TableView fx:id="tableRecord" layoutX="4.0" layoutY="60.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="265.0" prefWidth="570.0">
                           <columns>
                             <TableColumn fx:id="tbcImage" prefWidth="80.66668701171875" />
-                              <TableColumn fx:id="tbcLibrarian" maxWidth="424.0" minWidth="0.0" prefWidth="78.33331298828125" resizable="false" text="Member" />
+                              <TableColumn fx:id="tbcLibrarian" maxWidth="424.0" minWidth="0.0" prefWidth="78.33331298828125" resizable="true" text="Member" />
                             <TableColumn fx:id="tbcTitle" prefWidth="198.66668701171875" text="Title" />
                               <TableColumn fx:id="tbcDueDate" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="245.33331298828125" text="Due" />
                           
