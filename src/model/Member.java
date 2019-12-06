@@ -3,6 +3,8 @@ package model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.UUID;
+
 public class Member {
 	private StringProperty id;
 	private  SimpleStringProperty firstName;
@@ -11,15 +13,12 @@ public class Member {
 	private  SimpleStringProperty postalCode;
 	private  SimpleStringProperty city;
 	private  SimpleStringProperty email;
-	private  SimpleStringProperty username;
-	private  SimpleStringProperty password;
-	private Role role; 
 	
 	/**
 	 * Default constructor.
 	 */
 	public Member() {
-		this(null, null, null, null, null, null,null);
+		this(null, null, null, null, null, null);
 	}
 
 	/**
@@ -28,23 +27,14 @@ public class Member {
 	 * 
 	 * 
 	 */
-	public Member(String firstName, String lastName,String street,String postalCode,String city,String email,String rolevalue) {
+	public Member(String firstName, String lastName,String street,String postalCode,String city,String email) {
+		this.id = new SimpleStringProperty(UUID.randomUUID().toString());
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
-
-		
 		this.street = new SimpleStringProperty(street);
 		this.postalCode = new SimpleStringProperty(postalCode);
 		this.city = new SimpleStringProperty(city);
 		this.email = new SimpleStringProperty(email);
-		this.username = new SimpleStringProperty(email);
-		this.password = new SimpleStringProperty("123");
-		if(rolevalue=="ADMIN") 
-			this.role=Role.ADMIN;
-		else if(rolevalue=="LIBRARIAN")
-			this.role=Role.LIBRARIAN;
-		else if(rolevalue=="BOTH") 
-			this.role=Role.BOTH;
 	}
 	
 	public Member(String id, String firstName, String lastName) {
@@ -130,29 +120,6 @@ public class Member {
 
 	public StringProperty cityProperty() {
 		return city;
-	}
-
-	public void setusername(String username) {
-		this.username.set(username);
-	}
-
-	public StringProperty usernameProperty() {
-		return username;
-	}
-	public void setpassword(String password) {
-		this.password.set(password);
-	}
-
-	public StringProperty password() {
-		return password;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 	
 	public String getId() {

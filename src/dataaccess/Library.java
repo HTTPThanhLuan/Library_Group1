@@ -99,6 +99,10 @@ public class Library {
 	public void addBook(Book b) {
 		books.put(b.getId(), b);
 	}
+
+	public void addMember(Member m) {
+		members.put(m.getId(), m);
+	}
 	
 	public void updateBookQuantity(Book b, int quantity) {
 		if (availableBooks.containsKey(b.getId())) {
@@ -120,27 +124,22 @@ public class Library {
 	}
 	
 	private void initializeMembers() {
-		Member m = new Member("1", "Member1", "LastName");
+		Member m = new Member("Hans", "Muster", "12th Avenue", "52240", "FairField", "mahi1@gmail.com");
 		members.put(m.getId(), m);
-		m = new Member("2", "Member2", "LastName");
+		m = new Member("Heinz", "Kurz", "135", "52240", "FairField", "mahi3@gmail.com");
 		members.put(m.getId(), m);
-		m = new Member("3", "Member3", "LastName");
+		m = new Member("Cornelia", "Meier", "Avenue", "52240", "FairField", "mahi4@gmail.com");
 		members.put(m.getId(), m);
-		m = new Member("4", "Member4", "LastName");
+		m = new Member("Werner", "Meyer", "Avenue", "52240", "FairField", "mahi5@gmail.com");
 		members.put(m.getId(), m);
-		m = new Member("5", "Member5", "LastName");
+		m = new Member("Lydia", "Kunz", "Avenue", "52240", "FairField", "mahi6@gmail.com");
 		members.put(m.getId(), m);
-		m = new Member("6", "Member6", "LastName");
+		m = new Member("Anna", "Best", "Avenue1", "52240", "FairField", "mahi7@gmail.com");
 		members.put(m.getId(), m);
-		m = new Member("7", "Member7", "LastName");
+		m = new Member("Stefan", "Meier", "Avenue2", "52240", "FairField", "mahi8@gmail.com");
 		members.put(m.getId(), m);
-		m = new Member("8", "Member8", "LastName");
+		m = new Member("Martin", "Mueller", "Avenue3", "52240", "FairField", "mahi9@gmail.com");
 		members.put(m.getId(), m);
-		m = new Member("9", "Member9", "LastName");
-		members.put(m.getId(), m);
-		m = new Member("10", "Member10", "LastName");
-		members.put(m.getId(), m);
-		
 	}
 	private void updateBookAndQuantity(Book b, int quantity) {
 		addBook(b);
