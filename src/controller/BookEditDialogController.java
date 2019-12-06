@@ -50,6 +50,7 @@ public class BookEditDialogController {
         authorField.setText(book.getAuthor());
         publisherField.setText(book.getPublisher());
         isbnField.setText(book.getIsbn());
+        numberOfCopyField.setText(book.getNumberOfCopy()+"");
     }
 
     /**

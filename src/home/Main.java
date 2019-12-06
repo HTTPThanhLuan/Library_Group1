@@ -2,7 +2,7 @@ package home;
 
 import java.io.IOException;
 
-import controller.MemberEditDialogController;
+import controller.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,12 +18,15 @@ import javafx.stage.StageStyle;
 import model.Book;
 import model.Member;
 import util.UIUtils;
-import controller.BookEditDialogController;
-import controller.BookOverviewController;
-import controller.RecordsCheckoutController;
 
 public class Main extends Application {
-	private ObservableList<Book> data = FXCollections.observableArrayList();
+
+    public static final Main INSTANCE = new Main();
+
+    public static Main getInstance() {
+        return INSTANCE;
+    }
+
 	Stage primaryStage;
 	private AnchorPane rootLayout;
     private double xOffset = 0;
@@ -32,28 +35,9 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-	public ObservableList<Book> getData() {
-		return data;
-	}
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
-	}
-	
-	public  ObservableList<Book> getListBook() {
-		
-		return data;
-	}
-	public Main() {
-		// Add some sample data
-		data.add(new Book("Beginning Java Objects", "Jacquie Barker", "Apress", "978-1-4302-0036-9"));
-		data.add(new Book("Core Java Volume I – Fundamentals", "Cay S. Horstmann", "Prentice Hall", "978-0135166307"));
-		data.add(new Book("The Supreme Awakening", "Craig Pearson", "Maharishi University of Management Press", "978-0923569525"));
-		data.add(new Book("Mastering JavaFX 10", "Sergey Grinev", "Packt", "9781788293822"));
-		data.add(new Book("Introduction to Algorithms", "Thomas H. Cormen", "The MIT Press", "978-0262033848"));
-		data.add(new Book("Consciousness and the Quantum", "Robert Oates, Jr", "Maharishi University of Management Press", "Not available"));
-		data.add(new Book("Transcendental Meditation", "Maharishi Mahesh Yogi", "Maharishi University of Management Press", "Not available"));
-		data.add(new Book("HTML&CSS: Design and Build Web Sites", "Jon Duckett", "Wiley", "978-1118008188"));
-		data.add(new Book("The Healthy Brain Solution for Women", "Nancy Lonsdorf MD", "Independently published", "978-1792896774"));
 	}
 	
     @Override
@@ -129,7 +113,6 @@ public class Main extends Application {
 			AnchorPane view = (AnchorPane) loader.load();
 			bookStage.setScene(new Scene(view));
 			BookOverviewController controller = loader.getController();
-			controller.setMainApp(this);
 			bookStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -154,36 +137,6 @@ public class Main extends Application {
 				e.printStackTrace();
 			}
 		}
-	
-	public boolean showBookEditDialog(Book book) {
-		try {
-			// Load the fxml file and create a new stage for the popup dialog.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/BookEditDialog.fxml"));
-			AnchorPane page = (AnchorPane) loader.load();
-
-			// Create the dialog Stage.
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Edit Book");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.initOwner(primaryStage);
-			Scene scene = new Scene(page);
-			dialogStage.setScene(scene);
-
-			// Set the person into the controller.
-			BookEditDialogController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
-			controller.setBook(book);
-
-			// Show the dialog and wait until the user closes it
-			dialogStage.showAndWait();
-
-			return controller.isOkClicked();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
 	
 	public void showLogin(Stage primaryStage) {
 		VBox topContainer = new VBox();

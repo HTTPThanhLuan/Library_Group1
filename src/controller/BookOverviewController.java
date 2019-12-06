@@ -1,7 +1,11 @@
 package controller;
 
 
+import dataaccess.Library;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
@@ -9,12 +13,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import home.Main;
 import model.Book;
 import model.BookCopy;
+
+import java.io.IOException;
 
 public class BookOverviewController {
 	@FXML
@@ -42,10 +51,6 @@ public class BookOverviewController {
 	@FXML
 	private Label numberOfCopyLabel;
 
-
-	// Reference to the main application.
-	private Main mainApp;
-
 	/**
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
@@ -69,19 +74,15 @@ public class BookOverviewController {
 		showDetails(null);
 		// Listen for selection changes and show details
 		table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showDetails(newValue));
-
+		loadData();
 	}
 
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 *
-	 * @param mainApp
-	 */
-	public void setMainApp(Main mainApp) {
-		this.mainApp = mainApp;
-
-		// Add observable list data to the table
-		table.setItems(mainApp.getData());
+	private void loadData() {
+		ObservableList<Book> books = FXCollections.observableArrayList();
+		Library.getInstance().getBooks().forEach((key, value) -> {
+			books.add(value);
+		});
+		table.setItems(books);
 	}
 
 	private void showDetails(Book book) {
@@ -120,7 +121,7 @@ public class BookOverviewController {
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(mainApp.getPrimaryStage());
+			alert.initOwner(Main.getInstance().getPrimaryStage());
 			alert.setTitle("No Selection");
 			alert.setHeaderText("No Book Selected");
 			alert.setContentText("Please select a book in the table.");
@@ -134,10 +135,41 @@ public class BookOverviewController {
 	 */
 	@FXML
 	private void handleNew() {
-		Book temp = new Book();
-		boolean okClicked = mainApp.showBookEditDialog(temp);
+		Book newBook = new Book();
+		boolean okClicked = this.showBookEditDialog(newBook);
 		if (okClicked) {
-			mainApp.getData().add(temp);
+			Library.getInstance().getBooks().put(newBook.getId(), newBook);
+			loadData();
+		}
+	}
+
+	public boolean showBookEditDialog(Book book) {
+		try {
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/BookEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Book");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(Main.getInstance().getPrimaryStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			BookEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setBook(book);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -149,7 +181,7 @@ public class BookOverviewController {
 	private void handleEdit() {
 		Book selected = table.getSelectionModel().getSelectedItem();
 		if (selected != null) {
-			boolean okClicked = mainApp.showBookEditDialog(selected);
+			boolean okClicked = this.showBookEditDialog(selected);
 			if (okClicked) {
 				showDetails(selected);
 			}
@@ -157,7 +189,7 @@ public class BookOverviewController {
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(mainApp.getPrimaryStage());
+			alert.initOwner(Main.getInstance().getPrimaryStage());
 			alert.setTitle("No Selection");
 			alert.setHeaderText("No Book Selected");
 			alert.setContentText("Please select a book in the table.");
