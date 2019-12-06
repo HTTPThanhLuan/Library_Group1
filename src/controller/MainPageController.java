@@ -1,22 +1,29 @@
 package controller;
 
+import dataaccess.Library;
 import home.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Member;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -58,10 +65,10 @@ public class MainPageController implements Initializable {
     @FXML
     private Pane pnlOverview;    
     // The table's data
-    ObservableList<Member> data;
+    ObservableList<Member> data  = FXCollections.observableArrayList();
     @FXML
     private Pane pnlMenus;    
-    Main mainm = new Main();
+
     @FXML
     private HBox listButtonsEditPersion;
     
@@ -93,12 +100,10 @@ public class MainPageController implements Initializable {
     	street.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("street")
         );
-
-        data = FXCollections.observableArrayList();
-        addData();
+    	loadData();
         checkPermission();
-        memberTbl.setItems(data);
-    }    static long nextId = 1;
+    }
+    static long nextId = 1;
 
     public void checkPermission() {
         if (SystemController.getInstance().isAdmin()) {
@@ -114,53 +119,67 @@ public class MainPageController implements Initializable {
         }
     }
 
-    public void addData() {
-        // Add some sample data
-        data.add(new Member("Hans", "Muster", "12th Avenue", "52240", "FairField", "mahi1@gmail.com", "ADMIN"));
-        data.add(new Member("Ruth", "Mueller", "Avenue", "52240", "FairField", "mahi2@gmail.com", "ADMIN"));
-        data.add(new Member("Heinz", "Kurz", "135", "52240", "FairField", "mahi3@gmail.com", "ADMIN"));
-        data.add(new Member("Cornelia", "Meier", "Avenue", "52240", "FairField", "mahi4@gmail.com", "ADMIN"));
-        data.add(new Member("Werner", "Meyer", "Avenue", "52240", "FairField", "mahi5@gmail.com", "LIBRARIAN"));
-        data.add(new Member("Lydia", "Kunz", "Avenue", "52240", "FairField", "mahi6@gmail.com", "LIBRARIAN"));
-        data.add(new Member("Anna", "Best", "Avenue1", "52240", "FairField", "mahi7@gmail.com", "LIBRARIAN"));
-        data.add(new Member("Stefan", "Meier", "Avenue2", "52240", "FairField", "mahi8@gmail.com", "BOTH"));
-        data.add(new Member("Martin", "Mueller", "Avenue3", "52240", "FairField", "mahi9@gmail.com", "BOTH"));
-
-    }
-
-    // add this function for getting the data list of members
-    public ObservableList<Member> getMembers() {
-
-        data = FXCollections.observableArrayList();
-
-        addData();
-
-        return data;
+    public void loadData() {
+        Library.getInstance().getMembers().forEach((key, member) -> {
+            data.add(member);
+        });
+        memberTbl.setItems(data);
     }
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         Member member = new Member();
-        boolean okClicked = mainm.showPersonEditDialog(member);
+        boolean okClicked = showPersonEditDialog(member);
         if (okClicked) {
-
             data.add(member);
-
+            Library.getInstance().addMember(member);
         }
     }
 
+    public boolean showPersonEditDialog(Member member) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("../view/MemberEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Member");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(Main.getInstance().getPrimaryStage());
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            MemberEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMember(member);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     /**
      * Called when the user clicks on the delete button.
      */
     @FXML
     private void handleDeletePerson() {
         int selectedIndex = memberTbl.getSelectionModel().getSelectedIndex();
+        Member selectedMember = memberTbl.getSelectionModel().getSelectedItem();
         if (selectedIndex >= 0) {
+            Library.getInstance().getMembers().remove(selectedMember.getId());
         	memberTbl.getItems().remove(selectedIndex);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainm.getStage());
+            alert.initOwner(Main.getInstance().getStage());
             alert.setTitle("No Selection");
             alert.setHeaderText("No Person Selected");
             alert.setContentText("Please select a person in the table.");
@@ -178,14 +197,14 @@ public class MainPageController implements Initializable {
     private void handleEditPerson() {
         Member selectedPerson = memberTbl.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
-            boolean okClicked = mainm.showPersonEditDialog(selectedPerson);
+            boolean okClicked = showPersonEditDialog(selectedPerson);
             if (okClicked) {
 
             }
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(mainm.getStage());
+            alert.initOwner(Main.getInstance().getStage());
             alert.setTitle("No Selection");
             alert.setHeaderText("No Member Selected");
             alert.setContentText("Please select a Member in the table.");
@@ -196,19 +215,19 @@ public class MainPageController implements Initializable {
 
     public void handleClicks(ActionEvent actionEvent) throws Exception {
         if (actionEvent.getSource() == btnMember) {
-            mainm.showData();
+            Main.getInstance().showMemberView();
 
         }
         if (actionEvent.getSource() == btnBook) {
-            mainm.showBookOverview();
+            Main.getInstance().showBookOverview();
         }
 
         if (actionEvent.getSource() == btnCheckOutRecord) {
-            mainm.showCheckOutBookRecord();
+            Main.getInstance().showCheckOutBookRecord();
         }
 
         if (actionEvent.getSource() == btnBookCheckout) {
-            mainm.showBookCheckoutScreen();
+            Main.getInstance().showBookCheckoutScreen();
         }
 
     }
