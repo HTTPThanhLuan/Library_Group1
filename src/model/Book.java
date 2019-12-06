@@ -30,13 +30,13 @@ public class Book {
 		this.image=new ImageView("/resource/images/007149216X.jpg");
 		this.numberOfCopy = new SimpleIntegerProperty(0);
 	}
-	public Book(String id, String title, String author, String publisher, String isbn) {
+	public Book(String id, String title, String author, String publisher, String isbn, String image) {
 		this.id = new SimpleStringProperty(id);
 		this.title = new SimpleStringProperty(title);
 		this.author = new SimpleStringProperty(author);
 		this.publisher = new SimpleStringProperty(publisher);
 		this.isbn = new SimpleStringProperty(isbn);
-		this.image=new ImageView("/resource/images/007149216X.jpg");
+		this.image=new ImageView(image);
 		this.numberOfCopy = new SimpleIntegerProperty(1);
 		this.bookCopyList = new ArrayList<>();
 		bookCopyList.add(new BookCopy(this));
@@ -137,6 +137,10 @@ public class Book {
 	public ImageView imageProperty() {
         return image;
     }
+	
+	public ImageView getImage() {
+		return image;
+	}
 	
 	
 }
