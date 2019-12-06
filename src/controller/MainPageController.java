@@ -39,49 +39,65 @@ public class MainPageController implements Initializable {
     @FXML
     private Button btnMember;
     @FXML
-    private Button btnMenus;    // The table and columns
+    private Button btnMenus;    
+    // The table and columns
+    
     @FXML
-    TableView<Member> itemTbl;
+    private Button btnPackages;   
+    
+   
     @FXML
-    private Button btnPackages;    @FXML
-    TableColumn itemIdCol;
+    private Button btnSignout;   
+    
     @FXML
-    private Button btnSignout;    @FXML
-    TableColumn itemNameCol;
+    private Pane pnlCustomer;    
+   
     @FXML
-    private Pane pnlCustomer;    @FXML
-    TableColumn itemQtyCol;
+    private Pane pnlOrders;    
+   
     @FXML
-    private Pane pnlOrders;    @FXML
-    TableColumn itemPriceCol;
-    @FXML
-    private Pane pnlOverview;    // The table's data
+    private Pane pnlOverview;    
+    // The table's data
     ObservableList<Member> data;
     @FXML
-    private Pane pnlMenus;    Main mainm = new Main();
+    private Pane pnlMenus;    
+    Main mainm = new Main();
     @FXML
     private HBox listButtonsEditPersion;
+    
+	// The table and columns
+	@FXML
+	TableView<Member> memberTbl;
+
+	@FXML
+	TableColumn firstname;
+	@FXML
+	TableColumn lastname;
+	@FXML
+	TableColumn email;
+	@FXML
+	TableColumn street;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Set up the table data
-        itemIdCol.setCellValueFactory(
+    	firstname.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("firstName")
         );
-        itemNameCol.setCellValueFactory(
+    	lastname.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("lastName")
         );
-        itemQtyCol.setCellValueFactory(
+    	email.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("email")
         );
-        itemPriceCol.setCellValueFactory(
+    	street.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("street")
         );
 
         data = FXCollections.observableArrayList();
         addData();
         checkPermission();
-        itemTbl.setItems(data);
+        memberTbl.setItems(data);
     }    static long nextId = 1;
 
     public void checkPermission() {
@@ -93,7 +109,7 @@ public class MainPageController implements Initializable {
             btnBook.setVisible(false);
             btnMember.setVisible(false);
             listButtonsEditPersion.setVisible(false);
-            itemTbl.setVisible(false);
+            memberTbl.setVisible(false);
             btnCheckOutRecord.setVisible(true);
         }
     }
@@ -138,9 +154,9 @@ public class MainPageController implements Initializable {
      */
     @FXML
     private void handleDeletePerson() {
-        int selectedIndex = itemTbl.getSelectionModel().getSelectedIndex();
+        int selectedIndex = memberTbl.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            itemTbl.getItems().remove(selectedIndex);
+        	memberTbl.getItems().remove(selectedIndex);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -160,7 +176,7 @@ public class MainPageController implements Initializable {
      */
     @FXML
     private void handleEditPerson() {
-        Member selectedPerson = itemTbl.getSelectionModel().getSelectedItem();
+        Member selectedPerson = memberTbl.getSelectionModel().getSelectedItem();
         if (selectedPerson != null) {
             boolean okClicked = mainm.showPersonEditDialog(selectedPerson);
             if (okClicked) {

@@ -2,6 +2,7 @@ package home;
 
 import java.io.IOException;
 
+import controller.MemberEditDialogController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +20,6 @@ import model.Member;
 import util.UIUtils;
 import controller.BookEditDialogController;
 import controller.BookOverviewController;
-import controller.MemberEditDialogController;
 import controller.RecordsCheckoutController;
 
 public class Main extends Application {
@@ -59,7 +59,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
     	 primaryStage = stage;
-//    	 get().register(MemberController.class.toString(), primaryStage);
     	 Stage loginStage = new Stage();
     	 showLogin(loginStage);
     	 rootLayout = FXMLLoader.load(getClass().getResource("../view/MainPageView.fxml"));

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.regex.Pattern;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,8 +26,7 @@ public class MemberEditDialogController {
 	private TextField cityField;
 	@FXML
 	private TextField email;
-	@FXML
-	private CheckBox librarian;
+
 	@FXML
 	private CheckBox admin;
 
@@ -53,14 +54,7 @@ public class MemberEditDialogController {
 		postalCodeField.setText(member.getPostalCode());
 		cityField.setText(member.getCity());
 		email.setText(member.getEmail());
-		if(member.getRole()==Role.ADMIN)
-			admin.setSelected(true);
-		if(member.getRole()==Role.LIBRARIAN)
-			librarian.setSelected(true);
-		if(member.getRole()==Role.BOTH) {
-			admin.setSelected(true);
-			librarian.setSelected(true);
-		}
+	
 		
 		
 	}
@@ -89,18 +83,7 @@ public class MemberEditDialogController {
 			member.setPostalCode(postalCodeField.getText());
 			member.setCity(cityField.getText());
 			member.setEmail(email.getText());
-			if(librarian.isSelected()) {
-				Role role=Role.LIBRARIAN;
-				member.setRole(role);
-			}
-			if(admin.isSelected()) {
-				Role role=Role.ADMIN;
-				member.setRole(role);
-			}
-			if(librarian.isSelected() & admin.isSelected() ) {
-				Role role=Role.BOTH;
-				member.setRole(role);
-			}
+			
 				
 			okClicked = true;
 			dialogStage.close();
@@ -123,7 +106,7 @@ public class MemberEditDialogController {
 	 */
 	private boolean isInputValid() {
 		String errorMessage = "";
-		
+
 		if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
 			errorMessage += "No valid first name!\n";
 		}
@@ -134,15 +117,43 @@ public class MemberEditDialogController {
 			errorMessage += "No valid street!\n";
 		}
 
-		if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
-			errorMessage += "No valid postal code!\n";
-		} 
-
 		if (cityField.getText() == null || cityField.getText().length() == 0) {
 			errorMessage += "No valid city!\n";
 		}
 		if (email.getText() == null || email.getText().length() == 0) {
 			errorMessage += "No email !\n";
+		} else {
+			String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+					+ "A-Z]{2,7}$";
+
+			Pattern pat = Pattern.compile(emailRegex);
+			String emailaddress = email.getText().toString();
+
+			if (!pat.matcher(emailaddress).matches()) {
+				errorMessage += "Invalid email format !\n";
+			}
+			/**if(addNew) {
+			MemberController membercontroller= new MemberController();
+			ObservableList<Member> data;
+			data=membercontroller.getMembers();
+			for(Member member:data) {
+				if(member.getEmail().equals(emailaddress))
+				{
+					errorMessage += "This email already exit  !\n";
+				}
+			}
+			}**/
+			
+		}
+		if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
+			errorMessage += "No valid postal code!\n";
+		} else {
+
+			try {
+				Integer.parseInt(postalCodeField.getText());
+			} catch (NumberFormatException e) {
+				errorMessage += "No valid postal code (must be an integer)!\n";
+			}
 		}
 		
 
@@ -155,10 +166,8 @@ public class MemberEditDialogController {
 			alert.setTitle("Invalid Fields");
 			alert.setHeaderText("Please correct invalid fields");
 			alert.setContentText(errorMessage);
-
 			alert.showAndWait();
-
 			return false;
 		}
-	}
+	}	
 }
