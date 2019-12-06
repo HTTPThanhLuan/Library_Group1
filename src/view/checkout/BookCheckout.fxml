@@ -13,9 +13,9 @@
     <children>
         <Pane fx:id="pnlBookCheckout" prefHeight="554.0" prefWidth="400.0">
             <children>
-                <TextField fx:id="memberIDInput" layoutX="199.0" layoutY="49.0"
+                <ComboBox fx:id="cboMember" layoutX="199.0" layoutY="49.0"
                            onAction="#handleSearchUserAction" prefHeight="27.0" prefWidth="183.0"
-                           promptText="input user ID"
+                           promptText="Select member"
                            style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;"/>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="615.0"
                       spacing="80.0" style="-fx-background-color: #02030A;">
@@ -108,8 +108,8 @@
                         </AnchorPane>
                     </children>
                 </HBox>
-                <TextField fx:id="bookIDInput" layoutX="407.0" layoutY="49.0" onAction="#handleSearchBookAction"
-                           prefHeight="27.0" prefWidth="183.0" promptText="input book ID"
+                <ComboBox fx:id="cboBook" layoutX="407.0" layoutY="49.0" onAction="#handleSearchBookAction"
+                           prefHeight="27.0" prefWidth="183.0" promptText="Select the Book"
                            style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;"/>
             </children>
         </Pane>
