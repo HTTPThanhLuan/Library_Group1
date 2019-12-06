@@ -9,11 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -29,93 +26,84 @@ import java.util.ResourceBundle;
 
 
 public class MainPageController implements Initializable {
+    static long nextId = 1;
+    // The table's data
+    ObservableList<Member> data = FXCollections.observableArrayList();
+    // The table and columns
+    @FXML
+    TableView<Member> memberTbl;
+    @FXML
+    TableColumn firstname;
+    @FXML
+    TableColumn lastname;
+    @FXML
+    TableColumn email;
+    @FXML
+    TableColumn street;
+    // The table and columns
     @FXML
     private VBox pnItems = null;
     @FXML
     private Button pnlMember;
-
     @FXML
     private Button btnBook;
-
     @FXML
     private Button btnCheckOutRecord;
-
     @FXML
     private Button btnBookCheckout;
-
     @FXML
     private Button btnMember;
     @FXML
-    private Button btnMenus;    
-    // The table and columns
-    
+    private Button btnMenus;
     @FXML
-    private Button btnPackages;   
-    
-   
+    private Button btnPackages;
     @FXML
-    private Button btnSignout;   
-    
+    private Label lableRole;
     @FXML
-    private Pane pnlCustomer;    
-   
+    private Button btnSignout;
     @FXML
-    private Pane pnlOrders;    
-   
+    private Pane pnlCustomer;
     @FXML
-    private Pane pnlOverview;    
-    // The table's data
-    ObservableList<Member> data  = FXCollections.observableArrayList();
+    private Pane pnlOrders;
     @FXML
-    private Pane pnlMenus;    
-
+    private Pane pnlOverview;
+    @FXML
+    private Pane pnlMenus;
     @FXML
     private HBox listButtonsEditPersion;
-    
-	// The table and columns
-	@FXML
-	TableView<Member> memberTbl;
-
-	@FXML
-	TableColumn firstname;
-	@FXML
-	TableColumn lastname;
-	@FXML
-	TableColumn email;
-	@FXML
-	TableColumn street;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Set up the table data
-    	firstname.setCellValueFactory(
+        firstname.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("firstName")
         );
-    	lastname.setCellValueFactory(
+        lastname.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("lastName")
         );
-    	email.setCellValueFactory(
+        email.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("email")
         );
-    	street.setCellValueFactory(
+        street.setCellValueFactory(
                 new PropertyValueFactory<Member, String>("street")
         );
-    	loadData();
+        loadData();
         checkPermission();
     }
-    static long nextId = 1;
 
     public void checkPermission() {
-        if (SystemController.getInstance().isAdmin()) {
-            btnBook.setVisible(true);
-            btnMember.setVisible(true);
-            btnCheckOutRecord.setVisible(false);
-        } else if (SystemController.getInstance().isLibrarian()) {
-            btnBook.setVisible(false);
-            btnMember.setVisible(false);
+        if (SystemController.getInstance().isLibrarian()) {
             listButtonsEditPersion.setVisible(false);
             memberTbl.setVisible(false);
-            btnCheckOutRecord.setVisible(true);
+            lableRole.setText("Librarian");
+            btnMember.setDisable(true);
+            btnBook.setDisable(true);
+        } else if (SystemController.getInstance().isAdmin() ) {
+            lableRole.setText("Administrator");
+            btnCheckOutRecord.setDisable(true);
+            btnBookCheckout.setDisable(true);
+        } else {
+            lableRole.setText("Administrator and Librarian");
         }
     }
 
@@ -166,6 +154,7 @@ public class MainPageController implements Initializable {
             return false;
         }
     }
+
     /**
      * Called when the user clicks on the delete button.
      */
@@ -175,7 +164,7 @@ public class MainPageController implements Initializable {
         Member selectedMember = memberTbl.getSelectionModel().getSelectedItem();
         if (selectedIndex >= 0) {
             Library.getInstance().getMembers().remove(selectedMember.getId());
-        	memberTbl.getItems().remove(selectedIndex);
+            memberTbl.getItems().remove(selectedIndex);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
@@ -228,6 +217,12 @@ public class MainPageController implements Initializable {
 
         if (actionEvent.getSource() == btnBookCheckout) {
             Main.getInstance().showBookCheckoutScreen();
+        }
+
+        if (actionEvent.getSource() == btnSignout) {
+            Stage stage = (Stage) btnSignout.getScene().getWindow();
+            stage.close();
+            Main.getInstance().showLogin();
         }
 
     }

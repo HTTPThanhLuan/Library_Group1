@@ -47,16 +47,12 @@ public class MemberEditDialogController {
 	
 	public void setMember(Member member) {
 		this.member = member;
-
 		firstNameField.setText(member.getFirstName());
 		lastNameField.setText(member.getLastName());
 		streetField.setText(member.getStreet());
 		postalCodeField.setText(member.getPostalCode());
 		cityField.setText(member.getCity());
 		email.setText(member.getEmail());
-	
-		
-		
 	}
 
 	

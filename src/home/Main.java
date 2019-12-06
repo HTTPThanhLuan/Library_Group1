@@ -37,15 +37,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        primaryStage = stage;
-        Stage loginStage = new Stage();
-        showLogin(loginStage);
-        rootLayout = FXMLLoader.load(getClass().getResource("../view/MainPageView.fxml"));
-        Scene scene = new Scene(rootLayout, 850, 450);
-
-        scene.getStylesheets().add(getClass().getResource("../resource/styles/style.css").toExternalForm());
-        stage.setScene(scene);
-        stage.show();
+        showLogin();
     }
 
     public Stage getStage() {
@@ -104,8 +96,9 @@ public class Main extends Application {
         }
     }
 
-    public void showLogin(Stage primaryStage) {
+    public void showLogin() throws IOException{
         VBox topContainer = new VBox();
+        Stage loginStage = new Stage();
         Parent loginRoot = UIUtils.lookupParent("/view/LoginView.fxml");
         loginRoot.getStylesheets().add(getClass().getResource("/resource/styles/login_view.css").toExternalForm());
         loginRoot.setOnMousePressed(e -> {
@@ -114,22 +107,30 @@ public class Main extends Application {
         });
 
         loginRoot.setOnMouseDragged(e -> {
-            primaryStage.setX(e.getScreenX() - xOffset);
-            primaryStage.setY(e.getScreenY() - yOffset);
+            loginStage.setX(e.getScreenX() - xOffset);
+            loginStage.setY(e.getScreenY() - yOffset);
         });
 
         loginRoot.setOnMouseDragged(e -> {
-            primaryStage.setX(e.getScreenX() - xOffset);
-            primaryStage.setY(e.getScreenY() - yOffset);
+            loginStage.setX(e.getScreenX() - xOffset);
+            loginStage.setY(e.getScreenY() - yOffset);
         });
 
         topContainer.getChildren().add(loginRoot);
+        loginStage.setScene(new Scene(topContainer));
+        loginStage.setResizable(false);
+        loginStage.initStyle(StageStyle.UNDECORATED);
+        loginStage.centerOnScreen();
+        loginStage.showAndWait();
 
-        primaryStage.setScene(new Scene(topContainer));
-        primaryStage.setResizable(false);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.centerOnScreen();
-        primaryStage.showAndWait();
+        Stage primaryStage = new Stage();
+        rootLayout = FXMLLoader.load(getClass().getResource("../view/MainPageView.fxml"));
+        Scene scene = new Scene(rootLayout, 850, 450);
+
+        scene.getStylesheets().add(getClass().getResource("../resource/styles/style.css").toExternalForm());
+        primaryStage.setScene(scene);
+        this.primaryStage = primaryStage;
+        primaryStage.show();
 
     }
 
