@@ -116,8 +116,10 @@ public class BookOverviewController {
 	@FXML
 	private void handleDelete() {
 		int selectedIndex = table.getSelectionModel().getSelectedIndex();
+        Book selected = table.getSelectionModel().getSelectedItem();
 		if (selectedIndex >= 0) {
 			table.getItems().remove(selectedIndex);
+			Library.getInstance().getBooks().remove(selected.getId());
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
