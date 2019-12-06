@@ -6,10 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import model.Book;
 import model.Member;
@@ -54,6 +56,8 @@ public class BookCheckoutController extends LeftNavControler implements Initiali
     @FXML
     private ComboBox<Book> cboBook;
 
+    @FXML
+    private Button checkoutBtn;
     private Book book;
     private Member member;
 
@@ -116,6 +120,8 @@ public class BookCheckoutController extends LeftNavControler implements Initiali
             Library.getInstance().updateBookQuantity(this.book, -1);
             System.out.println("Number of books after checkout: " + getBookQuantity(book));
             Library.getInstance().updateCheckoutBook(book, member);
+            Stage stage = (Stage) checkoutBtn.getScene().getWindow();
+            stage.close();
         } else {
             if (member == null) {
                 userNotFoundLabel.setText("Error: User is required");
